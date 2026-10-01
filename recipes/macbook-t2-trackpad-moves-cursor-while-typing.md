@@ -251,11 +251,26 @@ should not move.
 ## Notes
 
 - The script finds the pad by the word "trackpad" in its name, which matches
-  Apple's naming. On a machine without such a device it exits after 60 s, and
-  `Restart=always` restarts it forever. Install it only on the MacBook, or
-  change the name hint for your hardware.
+  Apple's naming. Other laptops call theirs a "Touchpad", so there the script
+  exits after 60 s and `Restart=always` restarts it forever (one test machine
+  logged over 3,000 restarts). Install it only on the MacBook, or change the
+  name hint for your hardware.
 - To keep the hwdb file, script, and unit with your dotfiles, store them under
   `~/.config/` and add a script to `~/.config/omarchy/hooks/post-update.d/`
-  that copies them into place after each `omarchy update`.
+  that copies them into place after each `omarchy update`. If the same
+  dotfiles go on machines without an Apple trackpad, have that script check
+  for one first, and remove the daemon where there isn't one:
+
+  ```bash
+  if ! grep -qi '^N: Name=".*trackpad' /proc/bus/input/devices; then
+    if [[ -e /etc/systemd/system/trackpad-dwt.service ]]; then
+      sudo systemctl disable --now trackpad-dwt.service
+      sudo rm -f /etc/systemd/system/trackpad-dwt.service
+      sudo systemctl daemon-reload
+    fi
+    sudo rm -f /usr/local/bin/trackpad-dwt
+    exit 0
+  fi
+  ```
 - To undo: `sudo systemctl disable --now trackpad-dwt.service`, delete the
   script, unit, and hwdb file, run `sudo systemd-hwdb update`, and log out.

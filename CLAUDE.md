@@ -13,6 +13,8 @@ only the snippet that fixes it.
 This repo is meant to be public. Before writing or committing, leave out:
 
 - People's names, family details, email addresses, phone numbers, signatures.
+  Duff's first name is fine, since these are his customizations; his surname,
+  age, and birth year are not.
 - Hostnames, usernames in paths (write `~`, not `/home/<user>`), IPs, Wi-Fi
   network names, Tailscale names, display or device serial numbers.
 - Accounts and services that reveal finances, health, school, or home life
@@ -31,3 +33,10 @@ versions it was tested on, because Omarchy changes quickly and Hyprland moved
 to Lua config in 0.56.
 
 List every recipe in `README.md` with a one-line summary.
+
+## Adding new recipes
+
+New recipes come from a review of the private repo's commits since the last
+review. Nothing is written or pushed here until Duff has confirmed each item.
+The review steps and the record of where the last review stopped live in the
+private repo.

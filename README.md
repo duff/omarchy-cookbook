@@ -1,9 +1,12 @@
 # omarchy-recipes
 
-Fixes and tweaks for [Omarchy](https://omarchy.org/), one problem per recipe.
-Each recipe says what stock Omarchy does, why, the change that fixes it, and
-how to check that it worked. They come from one person's daily setup on a Dell
-XPS 16 with Apple Studio Displays and a MacBook Air.
+These are Duff's customizations for his instance of
+[Omarchy](https://omarchy.org/), running on a Dell XPS 16 with Apple Studio
+Displays and on a really old, now revived MacBook Air. Some of them might be
+helpful to others, or to someone's agents. 🙂
+
+Each recipe covers one problem: what stock Omarchy does, why, the change, and
+how to check that it worked.
 
 Every recipe was tested on **Omarchy 4.0.4 and Hyprland 0.56.2**, where the
 Hyprland config is Lua (`~/.config/hypr/*.lua`). Older advice written for
@@ -52,6 +55,7 @@ All changes go in `~/.config/`. None edit `/usr/share/omarchy/`, which
 - [HiDPI screens are left on auto scale instead of a fixed 2x](recipes/hidpi-screens-left-on-auto-scale.md): pin the scale.
 - [Monitors swap left and right when the cables change ports](recipes/monitors-swap-sides-when-cables-change-ports.md): pin each screen by make, model, and serial.
 - [Workspaces open on unpredictable monitors](recipes/workspaces-open-on-the-wrong-monitor.md): give each monitor its own block of workspace numbers.
+- [Every display's bar shows the same workspace numbers](recipes/every-bar-shows-the-same-workspace-numbers.md): each bar lists only its own screen's workspaces.
 - [Super+Slash made everything bigger, and it stays that way](recipes/super-slash-made-everything-bigger.md): what the shortcut changes and how to undo it.
 - [Hard to see which window is focused](recipes/hard-to-see-which-window-is-focused.md): wider borders.
 - [Super+Shift+arrow only swaps windows](recipes/super-shift-arrow-only-swaps-windows.md): move a window into its neighbor's split.
