@@ -21,10 +21,8 @@ shell function around the agent command can use both.
 Add a `claude` function to `~/.bashrc`, below the line that sources
 `$OMARCHY_PATH/default/bash/rc`. While Claude runs, the tab is `claude-N`.
 When it exits, the tab becomes plain `N`, so you can still tell the tabs
-apart but see that the agent is gone.
-
-This is an excerpt of the working function. `n` is a session number; see the
-notes for how it is chosen.
+apart but see that the agent is gone. `N` is the lowest number that no other
+tab in the Herdr workspace is using.
 
 ```bash
 claude() {
@@ -41,11 +39,15 @@ claude() {
     esac
   done
 
-  local n=1
-  # ... pick n here ...
-
   # Outside Herdr there is no tab to rename.
   [[ -z ${HERDR_TAB_ID:-} ]] && { command claude "$@"; return; }
+
+  # n is the lowest number no other tab in this workspace has, as N or
+  # claude-N.
+  local n=1 taken
+  taken=$(herdr tab list --workspace "$HERDR_WORKSPACE_ID" 2>/dev/null |
+    jq -r --arg me "$HERDR_TAB_ID" '.result.tabs[] | select(.tab_id != $me) | .label')
+  while grep -qxE "(claude-)?$n" <<<"$taken"; do ((n++)); done
 
   # The tab is claude-N while Claude runs and plain N after it exits
   local status
@@ -57,8 +59,16 @@ claude() {
 }
 ```
 
-`command claude` calls the real binary, not this function. The function
-returns Claude's exit status, so scripts that check it still work.
+How it works:
+
+- Herdr exports `HERDR_TAB_ID` and `HERDR_WORKSPACE_ID` into every pane.
+  `herdr tab list` prints the workspace's tabs as JSON, and `jq` pulls out
+  the labels of the other tabs.
+- A number counts as taken whether its tab still runs Claude (`claude-2`) or
+  has finished (`2`), so two tabs never share one. Starting Claude again in
+  the same tab usually gets the same number back.
+- `command claude` calls the real binary, not this function. The function
+  returns Claude's exit status, so scripts that check it still work.
 
 ## Apply and check
 
@@ -67,7 +77,7 @@ source ~/.bashrc
 ```
 
 In a Herdr tab, run `claude`. The tab should be renamed `claude-1` (or the
-number you chose). Quit Claude and the tab should read `1`. To see the names
+next free number). Quit Claude and the tab should read `1`. To see the names
 from another pane:
 
 ```bash
@@ -81,13 +91,12 @@ already renamed keep their names until you rename them.
 
 ## Notes
 
-- In the working config, `n` is the lowest number that no other running
-  Claude session for the same git project is using. The function finds the
-  project with `git rev-parse --show-toplevel`, then reads the other `claude`
-  processes' command lines from `/proc/<pid>/cmdline` to see which numbers are
-  taken. Any scheme that gives each tab a distinct number works. The full
-  numbering code, which also names each session for Remote Control, is in
-  [Claude sessions can't be reached from my phone, or all look alike there](../claude-sessions-look-alike-in-remote-control/RECIPE.md).
+- [Claude sessions can't be reached from my phone, or all look alike there](../claude-sessions-look-alike-in-remote-control/RECIPE.md)
+  defines a `claude` function too, and the one defined last wins. If you use
+  both, keep one function: put this one's `HERDR_TAB_ID` check and the two
+  renames around that one's final `command claude` line, and use its `n`,
+  which numbers sessions per git project. That is how the working config
+  does it.
 - The first version only renamed the tab to `claude-N` on start. After Claude
   exited, the tab kept saying `claude-N` over a plain shell, which is what the
   second rename fixes.
@@ -105,7 +114,7 @@ already renamed keep their names until you rename them.
   "id": "duff/herdr-tab-names-do-not-show-which-tab-runs-an-agent",
   "title": "Herdr tab names don't show which tab is running an agent",
   "summary": "Rename the tab while the agent runs.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
   "applies_to": "Every machine.",
   "requires": [{"command": "herdr"}, {"command": "claude"}],
