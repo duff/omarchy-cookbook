@@ -66,7 +66,7 @@ tell whether it applies to yours.
 
 - [Bar clock shows 24-hour time](recipes/bar-clock-shows-24-hour-time/RECIPE.md): switch to 12-hour.
 - [Battery percentage not shown in the bar](recipes/battery-percentage-not-shown-in-the-bar/RECIPE.md): show it next to the icon.
-- [Tailscale is missing from the bar, or a widget you don't use is on it](recipes/tailscale-missing-from-the-bar/RECIPE.md): enable, disable, or add bar widgets.
+- [Bar is missing a widget you want, or shows one you don't use](recipes/tailscale-missing-from-the-bar/RECIPE.md): enable, disable, or add bar widgets, such as Tailscale.
 - [Bar and menu text too small](recipes/bar-and-menu-text-too-small/RECIPE.md): enlarge the shell font without changing terminals.
 - [Reminder notification disappears after 5 seconds](recipes/reminder-disappears-after-5-seconds/RECIPE.md): keep reminders up until dismissed.
 - [Reboot from the menu, or Ctrl+Alt+Delete, closes everything without asking](recipes/reboot-and-close-all-windows-without-asking/RECIPE.md): add confirmations.

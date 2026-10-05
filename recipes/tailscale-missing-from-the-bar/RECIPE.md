@@ -1,10 +1,11 @@
-# Tailscale is missing from the bar, or a widget you don't use is on it
+# Bar is missing a widget you want, or shows one you don't use
 
 ## Problem
 
-You use Tailscale but there is no Tailscale icon in the bar. Or the bar
-carries a widget you don't use, such as Dropbox, and you want the space back.
-Or you found a bar widget in someone's git repo and want to add it.
+The bar is missing a widget you want: you use Tailscale, say, but there is
+no Tailscale icon. Or the bar carries a widget you don't use, such as
+Dropbox, and you want the space back. Or you found a bar widget in someone's
+git repo and want to add it.
 
 ## Why it happens
 
@@ -72,14 +73,16 @@ omarchy plugin add https://github.com/<owner>/<plugin>.git --enable
 ```
 
 This clones into `~/.config/omarchy/plugins/<id>/`, checks the manifest, and
-places the widget. Run interactively, it warns you and asks before cloning,
-then asks which bar section to use. In a script, add `--yes`, which skips the
-prompts (otherwise the command refuses to run without a terminal). Update it
-later with `omarchy plugin update <id>` and remove it with
-`omarchy plugin remove <id>`.
+places the widget. It warns you and asks before cloning, then asks which bar
+section to use. Update it later with `omarchy plugin update <id>` and remove
+it with `omarchy plugin remove <id>`.
 
-Read the code before you add one. Plugins run unsandboxed inside the
-long-running `omarchy-shell` process.
+Review a plugin's code before you add it. Plugins run unsandboxed inside the
+long-running `omarchy-shell` process, with the same access to your files and
+accounts as you have. Read the repo first: its `manifest.json` and every QML
+and script file. Prefer a plugin small enough to read in full, from an author
+you know. An update pulls the repo's new code, so read its recent commits
+before you run `omarchy plugin update`.
 
 ## Apply and check
 
@@ -115,7 +118,7 @@ third-party plugin.
 ```json
 {
   "id": "duff/tailscale-missing-from-the-bar",
-  "title": "Tailscale is missing from the bar, or a widget you don't use is on it",
+  "title": "Bar is missing a widget you want, or shows one you don't use",
   "summary": "Enable, disable, or add bar widgets with omarchy plugin.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
