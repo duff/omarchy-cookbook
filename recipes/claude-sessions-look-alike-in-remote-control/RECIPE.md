@@ -22,23 +22,10 @@ Omarchy installs Claude Code through mise and only adds a `cx` alias
 
 ## Fix
 
-### Turn on Remote Control for every session
-
-In `~/.claude/settings.json`:
-
-```json
-{
-  "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
-}
-```
-
-`remoteControlAtStartup` connects every interactive session at start, the
-same as **Enable Remote Control for all sessions** in `/config`. It only
-counts from user or managed settings; a `true` in a project's
-`.claude/settings.json` is ignored. `agentPushNotifEnabled` lets Claude send a
-push notification to your phone when it decides to (a long task finished, or
-it needs a decision).
+Remote Control means a session can be read and driven from claude.ai and
+the Claude app on your phone. Anyone signed in to your Claude account can see
+the conversation and send it prompts, and those prompts run on this machine
+like ones typed at the keyboard. Both parts below turn it on.
 
 ### Name each session after its project plus a number
 
@@ -92,6 +79,9 @@ How it works:
   `my-dotfiles-12`.
 - `command claude` runs the real binary, not this function. Your other
   arguments are passed through after the name.
+- `--remote-control <name>` turns Remote Control on for that session and
+  gives it the name. Every session you start from a shell is reachable this
+  way, without the setting below.
 
 Because bash expands aliases before looking up functions, Omarchy's `cx` alias
 goes through this function too.
@@ -100,6 +90,29 @@ If you use Herdr, the same function can rename the Herdr tab to `claude-N`
 while the session runs, using the same `n`. See
 [Herdr tab names don't show which tab is running an agent](../herdr-tab-names-do-not-show-which-tab-runs-an-agent/RECIPE.md)
 for that part; put its rename lines around the final `command claude` line.
+
+### Optional: Remote Control for every other session
+
+The function only covers sessions you start from an interactive shell. To
+connect every session, including ones Omarchy starts from a script (the agent
+key and the crash notification), add to `~/.claude/settings.json`:
+
+```json
+{
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
+}
+```
+
+`remoteControlAtStartup` connects every interactive session at start, the
+same as **Enable Remote Control for all sessions** in `/config`. It only
+counts from user or managed settings; a `true` in a project's
+`.claude/settings.json` is ignored. Leave it out to keep sessions you didn't
+start from a shell off Remote Control.
+
+`agentPushNotifEnabled` is separate, and optional too. It lets Claude send a
+push notification to your phone when it decides to (a long task finished, or
+it needs a decision).
 
 ## Apply and check
 
@@ -121,9 +134,9 @@ in the Claude app: both sessions are listed under those names.
 
 ## Undo
 
-Delete the `claude` function from `~/.bashrc`, and set
-`remoteControlAtStartup` to `false` in `~/.claude/settings.json`. Set
-`agentPushNotifEnabled` to `false` too if you don't want push notifications.
+Delete the `claude` function from `~/.bashrc`. If you added the settings,
+set `remoteControlAtStartup` and `agentPushNotifEnabled` to `false` in
+`~/.claude/settings.json`.
 
 ## Notes
 
