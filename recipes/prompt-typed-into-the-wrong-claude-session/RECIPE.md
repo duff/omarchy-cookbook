@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/prompt-typed-into-the-wrong-claude-session",
-  "title": "A prompt typed into the wrong Claude session changes the wrong project",
-  "summary": "Have Claude stop and ask when a prompt is meant for another project.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/CLAUDE.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # A prompt typed into the wrong Claude session changes the wrong project
 
 ## Problem
@@ -76,3 +57,24 @@ Delete the line from `~/.claude/CLAUDE.md`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/prompt-typed-into-the-wrong-claude-session",
+  "title": "A prompt typed into the wrong Claude session changes the wrong project",
+  "summary": "Have Claude stop and ask when a prompt is meant for another project.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/CLAUDE.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/web-app-opens-links-in-new-windows-or-browser-tabs",
-  "title": "A web app opens every link in a new window, or sends links out to a browser tab",
-  "summary": "Open the site in a regular browser window, or install it as a real Chrome app.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (Google Chrome).",
-  "requires": [{"command": "google-chrome-stable"}],
-  "touches": ["~/.local/share/applications/*.desktop", "~/.config/omarchy/example-app/launch"],
-  "root": false,
-  "network": false,
-  "installs": ["Chrome web app (Install page as app)"],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # A web app opens every link in a new window, or sends links out to a browser tab
 
 ## Problem
@@ -146,3 +127,24 @@ Delete the entries and the script. Uninstall the Chrome app from
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/web-app-opens-links-in-new-windows-or-browser-tabs",
+  "title": "A web app opens every link in a new window, or sends links out to a browser tab",
+  "summary": "Open the site in a regular browser window, or install it as a real Chrome app.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (Google Chrome).",
+  "requires": [{"command": "google-chrome-stable"}],
+  "touches": ["~/.local/share/applications/*.desktop", "~/.config/omarchy/example-app/launch"],
+  "root": false,
+  "network": false,
+  "installs": ["Chrome web app (Install page as app)"],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

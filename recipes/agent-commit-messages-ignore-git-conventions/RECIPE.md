@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/agent-commit-messages-ignore-git-conventions",
-  "title": "Coding agent writes long, unwrapped, or file-list commit messages",
-  "summary": "Give coding agents one global rule for commit messages.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "grok-cli": "1.0"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.grok/rules/git-commits.md", "~/.claude/CLAUDE.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Coding agent writes long, unwrapped, or file-list commit messages
 
 ## Problem
@@ -125,3 +106,24 @@ repo's `AGENTS.md` or `CLAUDE.md`).
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/agent-commit-messages-ignore-git-conventions",
+  "title": "Coding agent writes long, unwrapped, or file-list commit messages",
+  "summary": "Give coding agents one global rule for commit messages.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "grok-cli": "1.0"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.grok/rules/git-commits.md", "~/.claude/CLAUDE.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/voxtype-dictation-types-slowly",
-  "title": "Dictated text types out slowly, one character at a time",
-  "summary": "Set Voxtype's typing delay to zero.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
-  "applies_to": "Every machine with Voxtype dictation.",
-  "requires": [{"command": "voxtype"}],
-  "touches": ["~/.config/voxtype/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Dictated text types out slowly, one character at a time
 
 ## Problem
@@ -68,3 +49,24 @@ Set `type_delay_ms` back to `1`, Omarchy's value, in
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/voxtype-dictation-types-slowly",
+  "title": "Dictated text types out slowly, one character at a time",
+  "summary": "Set Voxtype's typing delay to zero.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
+  "applies_to": "Every machine with Voxtype dictation.",
+  "requires": [{"command": "voxtype"}],
+  "touches": ["~/.config/voxtype/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

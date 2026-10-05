@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/macbook-t2-trackpad-moves-cursor-while-typing",
-  "title": "MacBook T2 trackpad moves the cursor while typing",
-  "summary": "Tag the trackpad as internal, and with keyd, pause it after each key with a small daemon.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
-  "applies_to": "Intel MacBooks with a T2 chip (tested on a MacBook Air, USB id `05ac:027a`).",
-  "requires": [{"laptop": true}, {"vendor": "Apple"}],
-  "touches": ["/etc/udev/hwdb.d/71-touchpad-local.hwdb", "/usr/local/bin/trackpad-dwt", "/etc/systemd/system/trackpad-dwt.service"],
-  "root": true,
-  "network": false,
-  "installs": ["python-evdev"],
-  "runs": ["trackpad-dwt.service"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # MacBook T2 trackpad moves the cursor while typing
 
 ## Problem
@@ -306,3 +287,24 @@ nothing else uses `python-evdev`, remove it with
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/macbook-t2-trackpad-moves-cursor-while-typing",
+  "title": "MacBook T2 trackpad moves the cursor while typing",
+  "summary": "Tag the trackpad as internal, and with keyd, pause it after each key with a small daemon.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
+  "applies_to": "Intel MacBooks with a T2 chip (tested on a MacBook Air, USB id `05ac:027a`).",
+  "requires": [{"laptop": true}, {"vendor": "Apple"}],
+  "touches": ["/etc/udev/hwdb.d/71-touchpad-local.hwdb", "/usr/local/bin/trackpad-dwt", "/etc/systemd/system/trackpad-dwt.service"],
+  "root": true,
+  "network": false,
+  "installs": ["python-evdev"],
+  "runs": ["trackpad-dwt.service"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/laptop-wifi-falls-back-to-2-4-ghz-with-lid-shut",
-  "title": "Laptop Wi-Fi falls back to slow 2.4 GHz with the lid shut, or never joins 6 GHz",
-  "summary": "Switch the saved Wi-Fi profile to WPA3 and pin it to the 5 GHz band.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Laptops on a tri-band (2.4/5/6 GHz) router, especially used docked with the lid shut (tested on a Dell XPS 16 with Intel BE211 Wi-Fi).",
-  "requires": [{"laptop": true}],
-  "touches": ["/etc/NetworkManager/system-connections/<network>.nmconnection", "~/.config/nm/apply.sh"],
-  "root": true,
-  "network": true,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Laptop Wi-Fi falls back to slow 2.4 GHz with the lid shut, or never joins 6 GHz
 
 ## Problem
@@ -138,3 +119,24 @@ If you saved the script, delete it as well.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/laptop-wifi-falls-back-to-2-4-ghz-with-lid-shut",
+  "title": "Laptop Wi-Fi falls back to slow 2.4 GHz with the lid shut, or never joins 6 GHz",
+  "summary": "Switch the saved Wi-Fi profile to WPA3 and pin it to the 5 GHz band.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Laptops on a tri-band (2.4/5/6 GHz) router, especially used docked with the lid shut (tested on a Dell XPS 16 with Intel BE211 Wi-Fi).",
+  "requires": [{"laptop": true}],
+  "touches": ["/etc/NetworkManager/system-connections/<network>.nmconnection", "~/.config/nm/apply.sh"],
+  "root": true,
+  "network": true,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

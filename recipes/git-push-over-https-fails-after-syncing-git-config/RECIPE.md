@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/git-push-over-https-fails-after-syncing-git-config",
-  "title": "`git push` over HTTPS fails after syncing ~/.config/git/config",
-  "summary": "Commit a credential helper that calls gh by name, and keep the sync script from dropping it.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "gh": "2.102"},
-  "applies_to": "Every machine (most likely with two or more Omarchy installs).",
-  "requires": [{"command": "gh"}],
-  "touches": ["~/.config/git/config", "~/Work/your-config-repo/snapshot.sh"],
-  "root": false,
-  "network": true,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # `git push` over HTTPS fails after syncing ~/.config/git/config
 
 ## Problem
@@ -143,3 +124,24 @@ Take the `awk` step out of `snapshot.sh` if you added it.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/git-push-over-https-fails-after-syncing-git-config",
+  "title": "`git push` over HTTPS fails after syncing ~/.config/git/config",
+  "summary": "Commit a credential helper that calls gh by name, and keep the sync script from dropping it.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "gh": "2.102"},
+  "applies_to": "Every machine (most likely with two or more Omarchy installs).",
+  "requires": [{"command": "gh"}],
+  "touches": ["~/.config/git/config", "~/Work/your-config-repo/snapshot.sh"],
+  "root": false,
+  "network": true,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

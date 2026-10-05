@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/wine-app-blurry-or-thin-lines-on-hidpi",
-  "title": "Windows app in Wine is tiny, blurry, or draws hair-thin lines on a HiDPI screen",
-  "summary": "Draw at 96 DPI in Wine and let Hyprland double it with sharp pixels.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "wine": "11"},
-  "applies_to": "Windows apps run under Wine on 2x screens (tested with a stock market trading app that is only available for Windows, a .NET WinForms program, on Apple Studio Displays at scale 2).",
-  "requires": [{"command": "wine"}],
-  "touches": ["~/.config/hypr/tradingapp.lua", "~/.config/hypr/hyprland.lua", "~/.local/share/wineprefixes/tradingapp/"],
-  "root": true,
-  "network": true,
-  "installs": ["wine-mono", "wine-gecko", "winetricks", "winetricks arial tahoma micross gdiplus", "winetricks dotnet48"],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Windows app in Wine is tiny, blurry, or draws hair-thin lines on a HiDPI screen
 
 ## Problem
@@ -145,3 +126,24 @@ back to the value you had. If you installed Wine for this app alone,
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/wine-app-blurry-or-thin-lines-on-hidpi",
+  "title": "Windows app in Wine is tiny, blurry, or draws hair-thin lines on a HiDPI screen",
+  "summary": "Draw at 96 DPI in Wine and let Hyprland double it with sharp pixels.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "wine": "11"},
+  "applies_to": "Windows apps run under Wine on 2x screens (tested with a stock market trading app that is only available for Windows, a .NET WinForms program, on Apple Studio Displays at scale 2).",
+  "requires": [{"command": "wine"}],
+  "touches": ["~/.config/hypr/tradingapp.lua", "~/.config/hypr/hyprland.lua", "~/.local/share/wineprefixes/tradingapp/"],
+  "root": true,
+  "network": true,
+  "installs": ["wine-mono", "wine-gecko", "winetricks", "winetricks arial tahoma micross gdiplus", "winetricks dotnet48"],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

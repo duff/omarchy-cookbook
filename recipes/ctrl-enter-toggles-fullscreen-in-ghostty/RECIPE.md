@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/ctrl-enter-toggles-fullscreen-in-ghostty",
-  "title": "Ctrl+Enter toggles fullscreen in Ghostty instead of reaching the app",
-  "summary": "Send Ctrl+Enter to apps as a CSI-u sequence instead of toggling fullscreen.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "ghostty": "1.3.1"},
-  "applies_to": "Every machine using Ghostty as the terminal.",
-  "requires": [{"command": "ghostty"}],
-  "touches": ["~/.config/ghostty/config"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Ctrl+Enter toggles fullscreen in Ghostty instead of reaching the app
 
 ## Problem
@@ -100,3 +81,24 @@ machine where it is not installed. Copy Omarchy's config only when
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/ctrl-enter-toggles-fullscreen-in-ghostty",
+  "title": "Ctrl+Enter toggles fullscreen in Ghostty instead of reaching the app",
+  "summary": "Send Ctrl+Enter to apps as a CSI-u sequence instead of toggling fullscreen.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "ghostty": "1.3.1"},
+  "applies_to": "Every machine using Ghostty as the terminal.",
+  "requires": [{"command": "ghostty"}],
+  "touches": ["~/.config/ghostty/config"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-adds-co-authored-by-to-commits",
-  "title": "Claude Code adds \"Co-Authored-By: Claude\" to my commits",
-  "summary": "Turn off Claude Code's commit and pull request attribution.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/settings.json", "~/.claude/CLAUDE.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code adds "Co-Authored-By: Claude" to my commits
 
 ## Problem
@@ -83,3 +64,24 @@ from `~/.claude/CLAUDE.md`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-adds-co-authored-by-to-commits",
+  "title": "Claude Code adds \"Co-Authored-By: Claude\" to my commits",
+  "summary": "Turn off Claude Code's commit and pull request attribution.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/settings.json", "~/.claude/CLAUDE.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

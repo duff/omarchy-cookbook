@@ -1,23 +1,3 @@
----
-{
-  "id": "duff/super-j-error-on-scrolling-layout",
-  "title": "Super+J shows a Lua error on a scrolling-layout workspace",
-  "summary": "Only toggle the split on dwindle workspaces.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "upstream": "bug",
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Super+J shows a Lua error on a scrolling-layout workspace
 
 ## Problem
@@ -80,3 +60,25 @@ back on reload.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/super-j-error-on-scrolling-layout",
+  "title": "Super+J shows a Lua error on a scrolling-layout workspace",
+  "summary": "Only toggle the split on dwindle workspaces.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "upstream": "bug",
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

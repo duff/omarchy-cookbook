@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/screensaver-starts-too-soon",
-  "title": "Screensaver starts too soon while reading",
-  "summary": "Set longer idle timers for the screensaver and the lock.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/shell.json"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Screensaver starts too soon while reading
 
 ## Problem
@@ -75,3 +56,24 @@ to 150 and 300.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/screensaver-starts-too-soon",
+  "title": "Screensaver starts too soon while reading",
+  "summary": "Set longer idle timers for the screensaver and the lock.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/shell.json"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

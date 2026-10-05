@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/two-web-app-windows-for-the-same-site-get-mixed-up",
-  "title": "Two web app windows for the same site share one login or get mixed up",
-  "summary": "Give a second account its own Chrome profile, and mark a local copy with a colored border.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/site-accounts/launch", "~/.config/chrome-example-second/", "~/.local/share/applications/*.desktop", "~/.config/hypr/bindings.lua", "~/.config/hypr/looknfeel.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Two web app windows for the same site share one login or get mixed up
 
 ## Problem
@@ -178,3 +159,24 @@ folder to remove the second login. Remove your lines from `bindings.lua` and
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/two-web-app-windows-for-the-same-site-get-mixed-up",
+  "title": "Two web app windows for the same site share one login or get mixed up",
+  "summary": "Give a second account its own Chrome profile, and mark a local copy with a colored border.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/site-accounts/launch", "~/.config/chrome-example-second/", "~/.local/share/applications/*.desktop", "~/.config/hypr/bindings.lua", "~/.config/hypr/looknfeel.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

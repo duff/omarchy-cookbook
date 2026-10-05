@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/chrome-privacy-warning-on-local-caddy-https-site",
-  "title": "Chrome shows a privacy warning on a local Caddy HTTPS site",
-  "summary": "Add Caddy's root certificate to Chrome's own store.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Machines that serve local dev sites over HTTPS with Caddy.",
-  "requires": [{"command": "caddy"}],
-  "touches": ["~/.pki/nssdb/"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Chrome shows a privacy warning on a local Caddy HTTPS site
 
 ## Problem
@@ -104,3 +85,24 @@ certutil -d sql:$HOME/.pki/nssdb -D -n "<label>"
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/chrome-privacy-warning-on-local-caddy-https-site",
+  "title": "Chrome shows a privacy warning on a local Caddy HTTPS site",
+  "summary": "Add Caddy's root certificate to Chrome's own store.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Machines that serve local dev sites over HTTPS with Caddy.",
+  "requires": [{"command": "caddy"}],
+  "touches": ["~/.pki/nssdb/"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

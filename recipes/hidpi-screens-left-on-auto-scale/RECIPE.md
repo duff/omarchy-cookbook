@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/hidpi-screens-left-on-auto-scale",
-  "title": "HiDPI screens are left on auto scale instead of a fixed 2x",
-  "summary": "Pin every screen's scale to 2 instead of auto.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Machines with 2x (\"Retina\") panels, such as a Dell XPS 16 with Apple Studio Displays or a Pro Display XDR, or a MacBook Air.",
-  "requires": [],
-  "touches": ["~/.config/hypr/monitors.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # HiDPI screens are left on auto scale instead of a fixed 2x
 
 ## Problem
@@ -93,3 +74,24 @@ then run `hyprctl reload`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/hidpi-screens-left-on-auto-scale",
+  "title": "HiDPI screens are left on auto scale instead of a fixed 2x",
+  "summary": "Pin every screen's scale to 2 instead of auto.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Machines with 2x (\"Retina\") panels, such as a Dell XPS 16 with Apple Studio Displays or a Pro Display XDR, or a MacBook Air.",
+  "requires": [],
+  "touches": ["~/.config/hypr/monitors.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

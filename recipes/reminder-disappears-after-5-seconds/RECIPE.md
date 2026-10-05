@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/reminder-disappears-after-5-seconds",
-  "title": "Reminder notification disappears after 5 seconds",
-  "summary": "Make reminder toasts critical, so they stay up until dismissed.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/reminders/bin/omarchy-notification-send", "~/.config/systemd/user/omarchy-reminder-.service.d/override.conf"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["Drop-in for every omarchy-reminder-*.service user unit that omarchy reminder starts"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Reminder notification disappears after 5 seconds
 
 ## Problem
@@ -115,3 +96,24 @@ Delete `~/.config/omarchy/reminders/bin/omarchy-notification-send` and
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/reminder-disappears-after-5-seconds",
+  "title": "Reminder notification disappears after 5 seconds",
+  "summary": "Make reminder toasts critical, so they stay up until dismissed.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/reminders/bin/omarchy-notification-send", "~/.config/systemd/user/omarchy-reminder-.service.d/override.conf"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["Drop-in for every omarchy-reminder-*.service user unit that omarchy reminder starts"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

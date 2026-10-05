@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/swap-alt-and-super-on-laptop-keyboard-only",
-  "title": "Swap Alt and Super on the laptop keyboard but not on an external keyboard",
-  "summary": "Swap the keys in a keyd config that matches only the laptop keyboard.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
-  "applies_to": "Laptops used with a separate external keyboard (tested on a Dell XPS 16 with an ErgoDox).",
-  "requires": [{"laptop": true}, {"command": "keyd"}],
-  "touches": ["/etc/keyd/common", "/etc/keyd/default.conf", "/etc/keyd/laptop.conf"],
-  "root": true,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Swap Alt and Super on the laptop keyboard but not on an external keyboard
 
 ## Problem
@@ -119,3 +100,24 @@ Delete `/etc/keyd/laptop.conf`, remove the `-0001:0001` line from
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/swap-alt-and-super-on-laptop-keyboard-only",
+  "title": "Swap Alt and Super on the laptop keyboard but not on an external keyboard",
+  "summary": "Swap the keys in a keyd config that matches only the laptop keyboard.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
+  "applies_to": "Laptops used with a separate external keyboard (tested on a Dell XPS 16 with an ErgoDox).",
+  "requires": [{"laptop": true}, {"command": "keyd"}],
+  "touches": ["/etc/keyd/common", "/etc/keyd/default.conf", "/etc/keyd/laptop.conf"],
+  "root": true,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

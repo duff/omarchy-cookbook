@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/dictation-typed-into-the-wrong-field",
-  "title": "Dictation went into the wrong field and I have to say it again",
-  "summary": "Add Super+D to retype the last dictation into the focused field.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
-  "applies_to": "Every machine with Voxtype dictation.",
-  "requires": [{"command": "voxtype"}],
-  "touches": ["~/.config/omarchy/dictation/retype", "~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["Hyprland key listener (input.keyboard.key) in ~/.config/hypr/bindings.lua"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Dictation went into the wrong field and I have to say it again
 
 ## Problem
@@ -162,3 +143,24 @@ Delete the Lua block from `~/.config/hypr/bindings.lua` and the script
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/dictation-typed-into-the-wrong-field",
+  "title": "Dictation went into the wrong field and I have to say it again",
+  "summary": "Add Super+D to retype the last dictation into the focused field.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
+  "applies_to": "Every machine with Voxtype dictation.",
+  "requires": [{"command": "voxtype"}],
+  "touches": ["~/.config/omarchy/dictation/retype", "~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["Hyprland key listener (input.keyboard.key) in ~/.config/hypr/bindings.lua"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

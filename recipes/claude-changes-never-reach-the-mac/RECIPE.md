@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-changes-never-reach-the-mac",
-  "title": "Claude Code changes made on Omarchy never reach my Mac",
-  "summary": "Queue each Claude Code change as a GitHub issue in the Mac's config repo.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "An Omarchy machine plus a Mac (or any machine that does not run your Omarchy config).",
-  "requires": [{"command": "claude"}, {"command": "gh"}],
-  "touches": ["~/Work/your-omarchy-config/RULES.md"],
-  "root": false,
-  "network": true,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code changes made on Omarchy never reach my Mac
 
 ## Problem
@@ -117,3 +98,24 @@ gh label delete port-from-omarchy -R your-org/your-mac-config
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-changes-never-reach-the-mac",
+  "title": "Claude Code changes made on Omarchy never reach my Mac",
+  "summary": "Queue each Claude Code change as a GitHub issue in the Mac's config repo.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "An Omarchy machine plus a Mac (or any machine that does not run your Omarchy config).",
+  "requires": [{"command": "claude"}, {"command": "gh"}],
+  "touches": ["~/Work/your-omarchy-config/RULES.md"],
+  "root": false,
+  "network": true,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

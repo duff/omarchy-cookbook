@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/bar-and-menu-text-too-small",
-  "title": "Bar and menu text too small, but the terminal font is fine",
-  "summary": "Enlarge the shell font without changing terminals.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (most noticeable on large external displays).",
-  "requires": [],
-  "touches": ["~/.config/omarchy/shell.toml", "~/.config/ghostty/config", "~/.config/kitty/kitty.conf"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Bar and menu text too small, but the terminal font is fine
 
 ## Problem
@@ -98,3 +79,24 @@ picks up the change as soon as you save.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/bar-and-menu-text-too-small",
+  "title": "Bar and menu text too small, but the terminal font is fine",
+  "summary": "Enlarge the shell font without changing terminals.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (most noticeable on large external displays).",
+  "requires": [],
+  "touches": ["~/.config/omarchy/shell.toml", "~/.config/ghostty/config", "~/.config/kitty/kitty.conf"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

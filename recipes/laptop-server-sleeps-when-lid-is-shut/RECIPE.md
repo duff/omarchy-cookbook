@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/laptop-server-sleeps-when-lid-is-shut",
-  "title": "Laptop used as a headless server sleeps when the lid is shut",
-  "summary": "Ignore the lid and allow only key logins over SSH.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "A laptop kept closed on a shelf and reached over SSH (tested on a T2 MacBook Air).",
-  "requires": [{"laptop": true}],
-  "touches": ["~/.config/logind/ignore-lid.conf", "~/.config/logind/sshd.conf", "~/.config/logind/apply.sh", "~/.config/omarchy/hooks/post-update.d/apply-lid.hook", "~/.ssh/authorized_keys", "/etc/systemd/logind.conf.d/30-ignore-lid.conf", "/etc/ssh/sshd_config.d/10-key-only.conf"],
-  "root": true,
-  "network": true,
-  "installs": [],
-  "runs": ["sshd.service", "~/.config/omarchy/hooks/post-update.d/apply-lid.hook"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Laptop used as a headless server sleeps when the lid is shut
 
 ## Problem
@@ -154,3 +135,24 @@ should no longer log in.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/laptop-server-sleeps-when-lid-is-shut",
+  "title": "Laptop used as a headless server sleeps when the lid is shut",
+  "summary": "Ignore the lid and allow only key logins over SSH.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "A laptop kept closed on a shelf and reached over SSH (tested on a T2 MacBook Air).",
+  "requires": [{"laptop": true}],
+  "touches": ["~/.config/logind/ignore-lid.conf", "~/.config/logind/sshd.conf", "~/.config/logind/apply.sh", "~/.config/omarchy/hooks/post-update.d/apply-lid.hook", "~/.ssh/authorized_keys", "/etc/systemd/logind.conf.d/30-ignore-lid.conf", "/etc/ssh/sshd_config.d/10-key-only.conf"],
+  "root": true,
+  "network": true,
+  "installs": [],
+  "runs": ["sshd.service", "~/.config/omarchy/hooks/post-update.d/apply-lid.hook"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

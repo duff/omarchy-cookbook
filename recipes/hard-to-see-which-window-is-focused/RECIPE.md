@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/hard-to-see-which-window-is-focused",
-  "title": "Hard to see which window is focused",
-  "summary": "Widen the window borders.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (most noticeable on large or high-DPI screens).",
-  "requires": [],
-  "touches": ["~/.config/hypr/looknfeel.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Hard to see which window is focused
 
 ## Problem
@@ -78,3 +59,24 @@ to 2.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/hard-to-see-which-window-is-focused",
+  "title": "Hard to see which window is focused",
+  "summary": "Widen the window borders.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (most noticeable on large or high-DPI screens).",
+  "requires": [],
+  "touches": ["~/.config/hypr/looknfeel.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

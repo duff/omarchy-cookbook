@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/tailscale-missing-from-the-bar",
-  "title": "Tailscale is missing from the bar, or a widget you don't use is on it",
-  "summary": "Enable, disable, or add bar widgets with omarchy plugin.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/shell.json", "~/.config/omarchy/plugins/"],
-  "root": false,
-  "network": true,
-  "installs": ["a third-party shell plugin from git, if you add one"],
-  "runs": ["a third-party shell plugin, inside omarchy-shell, if you add one"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Tailscale is missing from the bar, or a widget you don't use is on it
 
 ## Problem
@@ -128,3 +109,24 @@ third-party plugin.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/tailscale-missing-from-the-bar",
+  "title": "Tailscale is missing from the bar, or a widget you don't use is on it",
+  "summary": "Enable, disable, or add bar widgets with omarchy plugin.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/shell.json", "~/.config/omarchy/plugins/"],
+  "root": false,
+  "network": true,
+  "installs": ["a third-party shell plugin from git, if you add one"],
+  "runs": ["a third-party shell plugin, inside omarchy-shell, if you add one"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/desktop-shortcuts-appear-in-home-folder",
-  "title": "Desktop shortcuts appear in the home folder",
-  "summary": "Create ~/Desktop and point the XDG desktop folder at it.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/Desktop", "~/.config/user-dirs.dirs"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Desktop shortcuts appear in the home folder
 
 ## Problem
@@ -77,3 +58,24 @@ At the next login, `xdg-user-dirs-update` points the desktop back at `~`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/desktop-shortcuts-appear-in-home-folder",
+  "title": "Desktop shortcuts appear in the home folder",
+  "summary": "Create ~/Desktop and point the XDG desktop folder at it.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/Desktop", "~/.config/user-dirs.dirs"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

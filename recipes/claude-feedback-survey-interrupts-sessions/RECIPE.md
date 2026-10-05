@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-feedback-survey-interrupts-sessions",
-  "title": "Claude Code keeps asking \"How is Claude doing?\"",
-  "summary": "Turn off Claude Code's session feedback survey.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/settings.json"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code keeps asking "How is Claude doing?"
 
 ## Problem
@@ -74,3 +55,24 @@ Remove the `CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY` line from `env` in
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-feedback-survey-interrupts-sessions",
+  "title": "Claude Code keeps asking \"How is Claude doing?\"",
+  "summary": "Turn off Claude Code's session feedback survey.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/settings.json"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

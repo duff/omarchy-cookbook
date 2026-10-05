@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/herdr-agent-list-keeps-reordering",
-  "title": "Herdr's agent list keeps reordering itself",
-  "summary": "Group Herdr's agent panel by workspace so its order stays put.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "herdr"}],
-  "touches": ["~/.config/herdr/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Herdr's agent list keeps reordering itself
 
 ## Problem
@@ -76,3 +57,24 @@ then run `herdr server reload-config`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/herdr-agent-list-keeps-reordering",
+  "title": "Herdr's agent list keeps reordering itself",
+  "summary": "Group Herdr's agent panel by workspace so its order stays put.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "herdr"}],
+  "touches": ["~/.config/herdr/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

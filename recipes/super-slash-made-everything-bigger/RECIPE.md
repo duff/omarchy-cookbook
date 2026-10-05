@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/super-slash-made-everything-bigger",
-  "title": "Super+Slash made everything bigger, and it stays that way after reboot",
-  "summary": "Put the saved monitor scale back, and optionally turn off Super+/.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (a \"watch out\" note, not a config change).",
-  "requires": [],
-  "touches": ["~/.config/hypr/monitors.lua", "~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Super+Slash made everything bigger, and it stays that way after reboot
 
 ## Problem
@@ -116,3 +97,24 @@ line from `~/.config/hypr/bindings.lua` to get Super+/ back.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/super-slash-made-everything-bigger",
+  "title": "Super+Slash made everything bigger, and it stays that way after reboot",
+  "summary": "Put the saved monitor scale back, and optionally turn off Super+/.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (a \"watch out\" note, not a config change).",
+  "requires": [],
+  "touches": ["~/.config/hypr/monitors.lua", "~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

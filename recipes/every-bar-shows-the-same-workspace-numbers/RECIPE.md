@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/every-bar-shows-the-same-workspace-numbers",
-  "title": "Every display's bar shows the same workspace numbers",
-  "summary": "Clone the workspaces widget so each bar lists only its own screen's workspaces.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Multi-monitor setups that pin workspaces to screens.",
-  "requires": [{"monitors": 2}],
-  "touches": ["~/.config/omarchy/plugins/<username>.workspaces/", "~/.config/omarchy/shell.json"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["the cloned workspaces bar widget, which reads the rules with hyprctl"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Every display's bar shows the same workspace numbers
 
 ## Problem
@@ -252,3 +233,24 @@ Re-enable the stock widget in place of the clone with
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/every-bar-shows-the-same-workspace-numbers",
+  "title": "Every display's bar shows the same workspace numbers",
+  "summary": "Clone the workspaces widget so each bar lists only its own screen's workspaces.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Multi-monitor setups that pin workspaces to screens.",
+  "requires": [{"monitors": 2}],
+  "touches": ["~/.config/omarchy/plugins/<username>.workspaces/", "~/.config/omarchy/shell.json"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["the cloned workspaces bar widget, which reads the rules with hyprctl"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/laptop-screen-stays-black-after-undocked-sleep",
-  "title": "Laptop screen stays black after undocking with the lid shut and sleeping",
-  "summary": "Keep the panel off while the lid is shut, and turn it back on after the wake.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Laptops with Intel graphics used docked with the lid shut (tested on a Dell XPS 16).",
-  "requires": [{"laptop": true}],
-  "touches": ["~/.config/logind/keep-panel-off-while-closed", "~/.config/hypr/autostart.lua", "~/.config/logind/edp-lid-restore", "/usr/lib/systemd/system-sleep/edp-lid-restore", "~/.local/state/omarchy/toggles/hypr/internal-monitor-clamshell.lua"],
-  "root": true,
-  "network": false,
-  "installs": [],
-  "runs": ["keep-panel-off-while-closed loop, started from ~/.config/hypr/autostart.lua", "systemd sleep hook /usr/lib/systemd/system-sleep/edp-lid-restore"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Laptop screen stays black after undocking with the lid shut and sleeping
 
 ## Problem
@@ -289,3 +270,24 @@ two scripts in `~/.config/logind/`, then log out and back in to stop the loop.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/laptop-screen-stays-black-after-undocked-sleep",
+  "title": "Laptop screen stays black after undocking with the lid shut and sleeping",
+  "summary": "Keep the panel off while the lid is shut, and turn it back on after the wake.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Laptops with Intel graphics used docked with the lid shut (tested on a Dell XPS 16).",
+  "requires": [{"laptop": true}],
+  "touches": ["~/.config/logind/keep-panel-off-while-closed", "~/.config/hypr/autostart.lua", "~/.config/logind/edp-lid-restore", "/usr/lib/systemd/system-sleep/edp-lid-restore", "~/.local/state/omarchy/toggles/hypr/internal-monitor-clamshell.lua"],
+  "root": true,
+  "network": false,
+  "installs": [],
+  "runs": ["keep-panel-off-while-closed loop, started from ~/.config/hypr/autostart.lua", "systemd sleep hook /usr/lib/systemd/system-sleep/edp-lid-restore"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

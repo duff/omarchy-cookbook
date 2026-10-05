@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/herdr-closes-workspace-pane-or-tab-without-asking",
-  "title": "Herdr closes a workspace, pane, or tab without asking",
-  "summary": "Turn Herdr's close confirmation back on and unbind the pane and tab close keys.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "herdr"}],
-  "touches": ["~/.config/herdr/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Herdr closes a workspace, pane, or tab without asking
 
 ## Problem
@@ -102,3 +83,24 @@ the confirmation too, set `confirm_close = false` again. Then run
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/herdr-closes-workspace-pane-or-tab-without-asking",
+  "title": "Herdr closes a workspace, pane, or tab without asking",
+  "summary": "Turn Herdr's close confirmation back on and unbind the pane and tab close keys.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "herdr"}],
+  "touches": ["~/.config/herdr/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

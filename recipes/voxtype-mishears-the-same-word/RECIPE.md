@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/voxtype-mishears-the-same-word",
-  "title": "Voxtype keeps mishearing the same word",
-  "summary": "Map each misheard spelling to the right word in [text.replacements].",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
-  "applies_to": "Every machine with Voxtype dictation.",
-  "requires": [{"command": "voxtype"}],
-  "touches": ["~/.config/voxtype/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Voxtype keeps mishearing the same word
 
 ## Problem
@@ -90,3 +71,24 @@ then run `systemctl --user restart voxtype`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/voxtype-mishears-the-same-word",
+  "title": "Voxtype keeps mishearing the same word",
+  "summary": "Map each misheard spelling to the right word in [text.replacements].",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
+  "applies_to": "Every machine with Voxtype dictation.",
+  "requires": [{"command": "voxtype"}],
+  "touches": ["~/.config/voxtype/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

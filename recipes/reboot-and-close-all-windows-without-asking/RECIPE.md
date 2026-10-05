@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/reboot-and-close-all-windows-without-asking",
-  "title": "Reboot from the menu, or Ctrl+Alt+Delete, closes everything without asking",
-  "summary": "Add confirmations to Reboot in the menu and to Ctrl+Alt+Delete.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/extensions/omarchy-menu.jsonc", "~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Reboot from the menu, or Ctrl+Alt+Delete, closes everything without asking
 
 ## Problem
@@ -114,3 +95,24 @@ Delete the three `system.reboot*` entries and the two Lua statements.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/reboot-and-close-all-windows-without-asking",
+  "title": "Reboot from the menu, or Ctrl+Alt+Delete, closes everything without asking",
+  "summary": "Add confirmations to Reboot in the menu and to Ctrl+Alt+Delete.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/extensions/omarchy-menu.jsonc", "~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/scrolling-direction-feels-backwards",
-  "title": "Scrolling direction feels backwards on the touchpad and mouse",
-  "summary": "Turn on natural scrolling for both the touchpad and the mouse.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/hypr/input.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Scrolling direction feels backwards on the touchpad and mouse
 
 ## Problem
@@ -71,3 +52,24 @@ Delete the lines or set them back to `false`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/scrolling-direction-feels-backwards",
+  "title": "Scrolling direction feels backwards on the touchpad and mouse",
+  "summary": "Turn on natural scrolling for both the touchpad and the mouse.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/hypr/input.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/ergodox-ez-cannot-be-flashed-from-oryx",
-  "title": "ErgoDox EZ cannot be flashed or trained from Oryx",
-  "summary": "Install ZSA's udev rules and add yourself to the plugdev group.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "ZSA keyboards (tested with an ErgoDox EZ).",
-  "requires": [{"device": "ErgoDox"}],
-  "touches": ["~/.config/udev/rules.d/50-zsa.rules", "/etc/udev/rules.d/50-zsa.rules", "/etc/group", "/etc/gshadow", "~/.local/share/applications/Ergodox.desktop", "~/.local/share/icons/hicolor/256x256/apps/"],
-  "root": true,
-  "network": true,
-  "installs": [],
-  "runs": ["/etc/udev/rules.d/50-zsa.rules"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # ErgoDox EZ cannot be flashed or trained from Oryx
 
 ## Problem
@@ -116,3 +97,24 @@ If you added the Oryx launcher, remove it with
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/ergodox-ez-cannot-be-flashed-from-oryx",
+  "title": "ErgoDox EZ cannot be flashed or trained from Oryx",
+  "summary": "Install ZSA's udev rules and add yourself to the plugdev group.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "ZSA keyboards (tested with an ErgoDox EZ).",
+  "requires": [{"device": "ErgoDox"}],
+  "touches": ["~/.config/udev/rules.d/50-zsa.rules", "/etc/udev/rules.d/50-zsa.rules", "/etc/group", "/etc/gshadow", "~/.local/share/applications/Ergodox.desktop", "~/.local/share/icons/hicolor/256x256/apps/"],
+  "root": true,
+  "network": true,
+  "installs": [],
+  "runs": ["/etc/udev/rules.d/50-zsa.rules"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/customizations-do-not-follow-to-other-machines",
-  "title": "My Omarchy customizations don't follow me to my other machines",
-  "summary": "A git overlay with a shared layer and a per-machine layer.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (most useful with two or more Omarchy installs).",
-  "requires": [],
-  "touches": ["~/.config/", "~/.config/hypr/autostart.lua", "~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/voxtype/config.toml", "~/.XCompose", "~/.bashrc", "~/.ssh/config", "/etc/hostname"],
-  "root": true,
-  "network": true,
-  "installs": ["1password", "1password-cli", "keyd", "aur/google-chrome"],
-  "runs": ["~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/hypr/autostart.lua", "~/.bashrc"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # My Omarchy customizations don't follow me to my other machines
 
 ## Problem
@@ -404,3 +385,24 @@ stop running `install.sh` there. To put back what they changed:
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/customizations-do-not-follow-to-other-machines",
+  "title": "My Omarchy customizations don't follow me to my other machines",
+  "summary": "A git overlay with a shared layer and a per-machine layer.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (most useful with two or more Omarchy installs).",
+  "requires": [],
+  "touches": ["~/.config/", "~/.config/hypr/autostart.lua", "~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/voxtype/config.toml", "~/.XCompose", "~/.bashrc", "~/.ssh/config", "/etc/hostname"],
+  "root": true,
+  "network": true,
+  "installs": ["1password", "1password-cli", "keyd", "aur/google-chrome"],
+  "runs": ["~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/hypr/autostart.lua", "~/.bashrc"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

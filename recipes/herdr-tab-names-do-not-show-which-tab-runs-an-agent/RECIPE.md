@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/herdr-tab-names-do-not-show-which-tab-runs-an-agent",
-  "title": "Herdr tab names don't show which tab is running an agent",
-  "summary": "Rename the tab while the agent runs.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "herdr"}, {"command": "claude"}],
-  "touches": ["~/.bashrc"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["~/.bashrc"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Herdr tab names don't show which tab is running an agent
 
 ## Problem
@@ -116,3 +97,24 @@ already renamed keep their names until you rename them.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/herdr-tab-names-do-not-show-which-tab-runs-an-agent",
+  "title": "Herdr tab names don't show which tab is running an agent",
+  "summary": "Rename the tab while the agent runs.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "herdr"}, {"command": "claude"}],
+  "touches": ["~/.bashrc"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["~/.bashrc"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/wine-app-quits-on-super-w-or-pops-back-up-when-hidden",
-  "title": "Wine app quits on Super+W, or pops back up after you hide it",
-  "summary": "Show and hide an all-day Wine app with one key, and make Super+W hide it instead of closing it.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "wine": "11"},
-  "applies_to": "A Windows app under Wine that you keep open all day (tested with a stock market trading app that is only available for Windows, spread across two Apple Studio Displays).",
-  "requires": [{"command": "wine"}],
-  "touches": ["~/.config/tradingapp/toggle", "~/.config/hypr/tradingapp.lua", "~/.config/hypr/hyprland.lua", "~/.local/share/applications/wine/Programs/TradingApp/TradingApp.desktop"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Wine app quits on Super+W, or pops back up after you hide it
 
 ## Problem
@@ -245,3 +226,24 @@ line back before you delete `~/.config/tradingapp/`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/wine-app-quits-on-super-w-or-pops-back-up-when-hidden",
+  "title": "Wine app quits on Super+W, or pops back up after you hide it",
+  "summary": "Show and hide an all-day Wine app with one key, and make Super+W hide it instead of closing it.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "wine": "11"},
+  "applies_to": "A Windows app under Wine that you keep open all day (tested with a stock market trading app that is only available for Windows, spread across two Apple Studio Displays).",
+  "requires": [{"command": "wine"}],
+  "touches": ["~/.config/tradingapp/toggle", "~/.config/hypr/tradingapp.lua", "~/.config/hypr/hyprland.lua", "~/.local/share/applications/wine/Programs/TradingApp/TradingApp.desktop"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

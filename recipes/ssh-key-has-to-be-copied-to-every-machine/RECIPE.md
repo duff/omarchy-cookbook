@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/ssh-key-has-to-be-copied-to-every-machine",
-  "title": "SSH key has to be created or copied onto every Omarchy machine",
-  "summary": "Point SSH at the 1Password SSH agent, so one key serves every machine.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "1password"}],
-  "touches": ["~/.ssh/config", "~/.ssh/id_ed25519.pub"],
-  "root": false,
-  "network": true,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # SSH key has to be created or copied onto every Omarchy machine
 
 ## Problem
@@ -104,3 +85,24 @@ Remove the `Host *` block from `~/.ssh/config`, and delete
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/ssh-key-has-to-be-copied-to-every-machine",
+  "title": "SSH key has to be created or copied onto every Omarchy machine",
+  "summary": "Point SSH at the 1Password SSH agent, so one key serves every machine.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "1password"}],
+  "touches": ["~/.ssh/config", "~/.ssh/id_ed25519.pub"],
+  "root": false,
+  "network": true,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

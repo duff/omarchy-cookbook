@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/mise-upgrade-skips-a-release-that-just-shipped",
-  "title": "`mise upgrade` skips a release that just shipped",
-  "summary": "Turn off mise's release cooldown and track the global mise config.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "mise": "2026.9"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "mise"}],
-  "touches": ["~/.config/mise/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": ["claude", "codex", "flyctl", "gh", "node", "npm:@xai-official/grok"],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # `mise upgrade` skips a release that just shipped
 
 ## Problem
@@ -116,3 +97,24 @@ installed.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/mise-upgrade-skips-a-release-that-just-shipped",
+  "title": "`mise upgrade` skips a release that just shipped",
+  "summary": "Turn off mise's release cooldown and track the global mise config.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "mise": "2026.9"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "mise"}],
+  "touches": ["~/.config/mise/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": ["claude", "codex", "flyctl", "gh", "node", "npm:@xai-official/grok"],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

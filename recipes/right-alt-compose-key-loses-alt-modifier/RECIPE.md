@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/right-alt-compose-key-loses-alt-modifier",
-  "title": "Putting Compose on Right Alt breaks Right Alt as a modifier",
-  "summary": "Make Right Alt Compose on tap and Alt on hold, with keyd.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["/etc/keyd/default.conf", "~/.config/hypr/input.lua"],
-  "root": true,
-  "network": false,
-  "installs": ["keyd"],
-  "runs": ["keyd.service"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Putting Compose on Right Alt breaks Right Alt as a modifier
 
 ## Problem
@@ -136,3 +117,24 @@ omarchy pkg drop keyd
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/right-alt-compose-key-loses-alt-modifier",
+  "title": "Putting Compose on Right Alt breaks Right Alt as a modifier",
+  "summary": "Make Right Alt Compose on tap and Alt on hold, with keyd.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["/etc/keyd/default.conf", "~/.config/hypr/input.lua"],
+  "root": true,
+  "network": false,
+  "installs": ["keyd"],
+  "runs": ["keyd.service"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/touchpad-palm-tap-clicks-things",
-  "title": "A light palm tap on the touchpad clicks things",
-  "summary": "Turn off tap-to-click so only a physical press clicks.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Laptops.",
-  "requires": [{"laptop": true}],
-  "touches": ["~/.config/hypr/input.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # A light palm tap on the touchpad clicks things
 
 ## Problem
@@ -73,3 +54,24 @@ Remove the `tap_to_click` line from `~/.config/hypr/input.lua`, or set it to
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/touchpad-palm-tap-clicks-things",
+  "title": "A light palm tap on the touchpad clicks things",
+  "summary": "Turn off tap-to-click so only a physical press clicks.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Laptops.",
+  "requires": [{"laptop": true}],
+  "touches": ["~/.config/hypr/input.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

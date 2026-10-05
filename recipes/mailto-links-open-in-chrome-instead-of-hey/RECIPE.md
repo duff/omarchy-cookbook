@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/mailto-links-open-in-chrome-instead-of-hey",
-  "title": "mailto: links open in Chrome instead of HEY",
-  "summary": "Put HEY back as the mailto handler and keep it there after updates.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine that uses Google Chrome as the default browser.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/hooks/post-update.d/set-mailto-hey.hook", "~/.config/omarchy/hey/launch", "~/.local/share/applications/HEY.desktop", "~/.config/mimeapps.list"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["~/.config/omarchy/hooks/post-update.d/set-mailto-hey.hook"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # mailto: links open in Chrome instead of HEY
 
 ## Problem
@@ -129,3 +110,24 @@ omarchy refresh applications
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/mailto-links-open-in-chrome-instead-of-hey",
+  "title": "mailto: links open in Chrome instead of HEY",
+  "summary": "Put HEY back as the mailto handler and keep it there after updates.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine that uses Google Chrome as the default browser.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/hooks/post-update.d/set-mailto-hey.hook", "~/.config/omarchy/hey/launch", "~/.local/share/applications/HEY.desktop", "~/.config/mimeapps.list"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["~/.config/omarchy/hooks/post-update.d/set-mailto-hey.hook"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

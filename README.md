@@ -6,8 +6,9 @@ Displays and on a really old, now revived MacBook Air. Some of them might be
 helpful to others, or to someone's agents. 🙂
 
 Each recipe covers one problem: what stock Omarchy does, why, the change, how
-to check that it worked, and how to undo it. Its header says which machines it
-fits and what it touches, so an agent can tell whether it applies to yours.
+to check that it worked, and how to undo it. The recipe data at the end says
+which machines it fits and what it touches, so an agent can tell whether it
+applies to yours.
 
 Every recipe was tested on **Omarchy 4.0.4 and Hyprland 0.56.2**, where the
 Hyprland config is Lua (`~/.config/hypr/*.lua`). Older advice written for

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/agent-skips-the-omarchy-skill-in-a-config-repo",
-  "title": "Coding agent skips the Omarchy skill when working in a dotfiles repo",
-  "summary": "Add a repo CLAUDE.md that tells agents to always load the Omarchy skill.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/Work/your-config-repo/CLAUDE.md", "~/Work/your-config-repo/AGENTS.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Coding agent skips the Omarchy skill when working in a dotfiles repo
 
 ## Problem
@@ -103,3 +84,24 @@ matches its description.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/agent-skips-the-omarchy-skill-in-a-config-repo",
+  "title": "Coding agent skips the Omarchy skill when working in a dotfiles repo",
+  "summary": "Add a repo CLAUDE.md that tells agents to always load the Omarchy skill.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/Work/your-config-repo/CLAUDE.md", "~/Work/your-config-repo/AGENTS.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

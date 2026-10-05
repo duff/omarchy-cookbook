@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/voxtype-parakeet-model-differs-per-machine",
-  "title": "One Voxtype config on machines that need different Parakeet models",
-  "summary": "Switch Voxtype to Parakeet and keep the model choice per machine.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
-  "applies_to": "Every machine with Voxtype dictation, most useful with several machines.",
-  "requires": [{"command": "voxtype"}],
-  "touches": ["~/.config/voxtype/config.toml", "~/.config/systemd/user/voxtype.service.d/parakeet.conf", "~/.local/share/voxtype/models/<model name>/"],
-  "root": false,
-  "network": true,
-  "installs": ["Parakeet model weights (parakeet-tdt-0.6b-v2-int8)"],
-  "runs": ["voxtype.service, through the parakeet.conf drop-in"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # One Voxtype config on machines that need different Parakeet models
 
 ## Problem
@@ -190,3 +171,24 @@ folder there to get the space back.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/voxtype-parakeet-model-differs-per-machine",
+  "title": "One Voxtype config on machines that need different Parakeet models",
+  "summary": "Switch Voxtype to Parakeet and keep the model choice per machine.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "voxtype": "1.1.0"},
+  "applies_to": "Every machine with Voxtype dictation, most useful with several machines.",
+  "requires": [{"command": "voxtype"}],
+  "touches": ["~/.config/voxtype/config.toml", "~/.config/systemd/user/voxtype.service.d/parakeet.conf", "~/.local/share/voxtype/models/<model name>/"],
+  "root": false,
+  "network": true,
+  "installs": ["Parakeet model weights (parakeet-tdt-0.6b-v2-int8)"],
+  "runs": ["voxtype.service, through the parakeet.conf drop-in"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

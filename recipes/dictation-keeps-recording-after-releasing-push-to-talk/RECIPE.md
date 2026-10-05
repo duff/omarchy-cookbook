@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/dictation-keeps-recording-after-releasing-push-to-talk",
-  "title": "Dictation keeps recording after I let go of the push-to-talk key",
-  "summary": "Rebind both ends of push-to-talk to ignore modifiers.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine with Voxtype dictation.",
-  "requires": [{"command": "voxtype"}],
-  "touches": ["~/.config/hypr/bindings.lua", "/etc/keyd/default.conf"],
-  "root": true,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Dictation keeps recording after I let go of the push-to-talk key
 
 ## Problem
@@ -96,3 +77,24 @@ If you remapped Right Shift, delete the `rightshift = f9` line from
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/dictation-keeps-recording-after-releasing-push-to-talk",
+  "title": "Dictation keeps recording after I let go of the push-to-talk key",
+  "summary": "Rebind both ends of push-to-talk to ignore modifiers.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine with Voxtype dictation.",
+  "requires": [{"command": "voxtype"}],
+  "touches": ["~/.config/hypr/bindings.lua", "/etc/keyd/default.conf"],
+  "root": true,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

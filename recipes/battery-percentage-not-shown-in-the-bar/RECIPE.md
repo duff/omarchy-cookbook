@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/battery-percentage-not-shown-in-the-bar",
-  "title": "Battery percentage not shown in the bar",
-  "summary": "Show the battery percentage next to the bar's battery icon.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Laptops.",
-  "requires": [{"laptop": true}],
-  "touches": ["~/.config/omarchy/shell.json"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Battery percentage not shown in the bar
 
 ## Problem
@@ -71,3 +52,24 @@ Right-click the icon again, or remove the `showPercentage` line.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/battery-percentage-not-shown-in-the-bar",
+  "title": "Battery percentage not shown in the bar",
+  "summary": "Show the battery percentage next to the bar's battery icon.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Laptops.",
+  "requires": [{"laptop": true}],
+  "touches": ["~/.config/omarchy/shell.json"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

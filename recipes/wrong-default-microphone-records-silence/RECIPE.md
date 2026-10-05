@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/wrong-default-microphone-records-silence",
-  "title": "Wrong default microphone: dictation and calls record silence when docked",
-  "summary": "Raise the WirePlumber priority of the microphones you want as the default.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Machines with several audio inputs, such as a laptop on a dock with a webcam and monitor microphones (tested on a Dell XPS 16 with a CalDigit TS4 dock, a Logitech 4K Pro webcam, and Studio Displays).",
-  "requires": [],
-  "touches": ["~/.config/wireplumber/wireplumber.conf.d/51-mic-priority.conf"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Wrong default microphone: dictation and calls record silence when docked
 
 ## Problem
@@ -116,3 +97,24 @@ systemctl --user restart wireplumber
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/wrong-default-microphone-records-silence",
+  "title": "Wrong default microphone: dictation and calls record silence when docked",
+  "summary": "Raise the WirePlumber priority of the microphones you want as the default.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Machines with several audio inputs, such as a laptop on a dock with a webcam and monitor microphones (tested on a Dell XPS 16 with a CalDigit TS4 dock, a Logitech 4K Pro webcam, and Studio Displays).",
+  "requires": [],
+  "touches": ["~/.config/wireplumber/wireplumber.conf.d/51-mic-priority.conf"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

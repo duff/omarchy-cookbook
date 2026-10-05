@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/monitors-swap-sides-when-cables-change-ports",
-  "title": "Monitors swap left and right when the cables change ports",
-  "summary": "Pin each screen by make, model, and serial instead of by port.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Desks with two or more external displays, especially identical ones (tested with two Apple Studio Displays on a Dell XPS 16 over Thunderbolt).",
-  "requires": [{"monitors": 2}],
-  "touches": ["~/.config/hypr/monitors.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Monitors swap left and right when the cables change ports
 
 ## Problem
@@ -115,3 +96,24 @@ Delete the `screens` table and the three `hl.monitor` lines, then run
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/monitors-swap-sides-when-cables-change-ports",
+  "title": "Monitors swap left and right when the cables change ports",
+  "summary": "Pin each screen by make, model, and serial instead of by port.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Desks with two or more external displays, especially identical ones (tested with two Apple Studio Displays on a Dell XPS 16 over Thunderbolt).",
+  "requires": [{"monitors": 2}],
+  "touches": ["~/.config/hypr/monitors.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

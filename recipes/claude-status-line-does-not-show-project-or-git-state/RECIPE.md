@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-status-line-does-not-show-project-or-git-state",
-  "title": "Claude Code's status line doesn't show the project or whether git is clean",
-  "summary": "Show the model, effort, project, and a git check or cross in Claude Code's status line.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/settings.json", "~/.claude/statusline.sh"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": ["Claude Code status line command, ~/.claude/statusline.sh, after each reply"],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code's status line doesn't show the project or whether git is clean
 
 ## Problem
@@ -177,3 +158,24 @@ Remove the `statusLine` block from `~/.claude/settings.json` and delete
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-status-line-does-not-show-project-or-git-state",
+  "title": "Claude Code's status line doesn't show the project or whether git is clean",
+  "summary": "Show the model, effort, project, and a git check or cross in Claude Code's status line.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/settings.json", "~/.claude/statusline.sh"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": ["Claude Code status line command, ~/.claude/statusline.sh, after each reply"],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

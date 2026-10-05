@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/launcher-shortcut-opens-a-second-window",
-  "title": "A launcher shortcut opens a second window instead of focusing the open one",
-  "summary": "Rebind shortcuts and launcher entries to focus the open window by its class.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/browser/focus", "~/.config/omarchy/launchers/apply.sh", "~/.local/share/applications/GitHub.desktop", "~/.local/share/applications/Google Photos.desktop", "~/.local/share/applications/Todoist.desktop", "~/.local/share/applications/YouTube.desktop", "~/.local/share/applications/X.desktop"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # A launcher shortcut opens a second window instead of focusing the open one
 
 ## Problem
@@ -223,3 +204,24 @@ To get the stock launcher entries back, reinstall the web app with
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/launcher-shortcut-opens-a-second-window",
+  "title": "A launcher shortcut opens a second window instead of focusing the open one",
+  "summary": "Rebind shortcuts and launcher entries to focus the open window by its class.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/browser/focus", "~/.config/omarchy/launchers/apply.sh", "~/.local/share/applications/GitHub.desktop", "~/.local/share/applications/Google Photos.desktop", "~/.local/share/applications/Todoist.desktop", "~/.local/share/applications/YouTube.desktop", "~/.local/share/applications/X.desktop"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

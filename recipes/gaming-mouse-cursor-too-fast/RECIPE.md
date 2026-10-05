@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/gaming-mouse-cursor-too-fast",
-  "title": "Gaming mouse moves the cursor too fast to place it precisely",
-  "summary": "Give the mouse its own acceleration curve, precise when slow and far on a flick.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "High-DPI mice (tested with a Razer Viper V3 Pro).",
-  "requires": [],
-  "touches": ["~/.config/hypr/input.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Gaming mouse moves the cursor too fast to place it precisely
 
 ## Problem
@@ -100,3 +81,24 @@ Delete the `viper_curve` line and the `hl.device` lines.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/gaming-mouse-cursor-too-fast",
+  "title": "Gaming mouse moves the cursor too fast to place it precisely",
+  "summary": "Give the mouse its own acceleration curve, precise when slow and far on a flick.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "High-DPI mice (tested with a Razer Viper V3 Pro).",
+  "requires": [],
+  "touches": ["~/.config/hypr/input.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

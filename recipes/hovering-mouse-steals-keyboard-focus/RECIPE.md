@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/hovering-mouse-steals-keyboard-focus",
-  "title": "Moving the mouse or brushing the touchpad steals keyboard focus",
-  "summary": "Make keyboard focus follow clicks, while hover still scrolls.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine (most noticeable on laptops).",
-  "requires": [],
-  "touches": ["~/.config/hypr/input.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Moving the mouse or brushing the touchpad steals keyboard focus
 
 ## Problem
@@ -71,3 +52,24 @@ Remove the line; Omarchy's `1` comes back.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/hovering-mouse-steals-keyboard-focus",
+  "title": "Moving the mouse or brushing the touchpad steals keyboard focus",
+  "summary": "Make keyboard focus follow clicks, while hover still scrolls.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine (most noticeable on laptops).",
+  "requires": [],
+  "touches": ["~/.config/hypr/input.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

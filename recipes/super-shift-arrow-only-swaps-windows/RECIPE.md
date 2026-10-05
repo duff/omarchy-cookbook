@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/super-shift-arrow-only-swaps-windows",
-  "title": "Super+Shift+arrow only swaps windows, can't move one into another's space",
-  "summary": "Bind Super+Ctrl+Shift+arrow to move a window into its neighbor's split.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine using the dwindle layout (Omarchy's default).",
-  "requires": [],
-  "touches": ["~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Super+Shift+arrow only swaps windows, can't move one into another's space
 
 ## Problem
@@ -85,3 +66,24 @@ Delete the four bindings from `~/.config/hypr/bindings.lua`, then run
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/super-shift-arrow-only-swaps-windows",
+  "title": "Super+Shift+arrow only swaps windows, can't move one into another's space",
+  "summary": "Bind Super+Ctrl+Shift+arrow to move a window into its neighbor's split.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine using the dwindle layout (Omarchy's default).",
+  "requires": [],
+  "touches": ["~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

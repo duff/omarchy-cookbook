@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/bar-clock-shows-24-hour-time",
-  "title": "Bar clock shows 24-hour time",
-  "summary": "Switch the bar clock to a 12-hour format.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/shell.json"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Bar clock shows 24-hour time
 
 ## Problem
@@ -81,3 +62,24 @@ omarchy bar set omarchy.clock format "dddd HH:mm"
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/bar-clock-shows-24-hour-time",
+  "title": "Bar clock shows 24-hour time",
+  "summary": "Switch the bar clock to a 12-hour format.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/shell.json"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

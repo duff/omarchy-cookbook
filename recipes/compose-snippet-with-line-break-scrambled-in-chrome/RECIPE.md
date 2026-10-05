@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/compose-snippet-with-line-break-scrambled-in-chrome",
-  "title": "A Compose snippet with a line break comes out scrambled in Chrome",
-  "summary": "Commit a placeholder and type the lines with an fcitx5 Lua add-on and wtype.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.XCompose", "~/.local/share/fcitx5/addon/signature.conf", "~/.local/share/fcitx5/lua/signature/signature.lua"],
-  "root": true,
-  "network": false,
-  "installs": ["fcitx5-lua", "wtype"],
-  "runs": ["the signature fcitx5 Lua add-on, loaded whenever fcitx5 starts"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # A Compose snippet with a line break comes out scrambled in Chrome
 
 ## Problem
@@ -147,3 +128,24 @@ so leave that installed.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/compose-snippet-with-line-break-scrambled-in-chrome",
+  "title": "A Compose snippet with a line break comes out scrambled in Chrome",
+  "summary": "Commit a placeholder and type the lines with an fcitx5 Lua add-on and wtype.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.XCompose", "~/.local/share/fcitx5/addon/signature.conf", "~/.local/share/fcitx5/lua/signature/signature.lua"],
+  "root": true,
+  "network": false,
+  "installs": ["fcitx5-lua", "wtype"],
+  "runs": ["the signature fcitx5 Lua add-on, loaded whenever fcitx5 starts"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

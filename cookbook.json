@@ -1,6 +1,6 @@
 {
   "owner": "duff",
-  "kitchen": "v0.1.0",
+  "kitchen": "v0.2.0",
   "description": "Customizations for a Dell XPS 16 with Apple Studio Displays, and an old MacBook Air that runs as a home server.",
   "machines": [
     "Dell XPS 16 with three Apple Studio Displays",

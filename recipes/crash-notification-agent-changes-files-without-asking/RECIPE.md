@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/crash-notification-agent-changes-files-without-asking",
-  "title": "Clicking \"Process crashed\" starts an agent that may change files without asking",
-  "summary": "Open the crash diagnosis agent in plan mode, from your config repo.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/defaults/agent", "~/.config/systemd/user/omarchy-crash-watch.service.d/override.conf", "~/.config/omarchy/crash/watch", "~/.config/omarchy/crash/agent-crash", "~/.config/omarchy/crash/bin/omarchy-agent"],
-  "root": false,
-  "network": false,
-  "installs": ["claude"],
-  "runs": ["omarchy-crash-watch.service (systemd user unit), through a drop-in"],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Clicking "Process crashed" starts an agent that may change files without asking
 
 ## Problem
@@ -178,3 +159,24 @@ default agent too, delete `~/.config/omarchy/defaults/agent`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/crash-notification-agent-changes-files-without-asking",
+  "title": "Clicking \"Process crashed\" starts an agent that may change files without asking",
+  "summary": "Open the crash diagnosis agent in plan mode, from your config repo.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/defaults/agent", "~/.config/systemd/user/omarchy-crash-watch.service.d/override.conf", "~/.config/omarchy/crash/watch", "~/.config/omarchy/crash/agent-crash", "~/.config/omarchy/crash/bin/omarchy-agent"],
+  "root": false,
+  "network": false,
+  "installs": ["claude"],
+  "runs": ["omarchy-crash-watch.service (systemd user unit), through a drop-in"],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

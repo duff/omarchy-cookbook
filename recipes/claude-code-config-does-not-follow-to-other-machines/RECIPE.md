@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-code-config-does-not-follow-to-other-machines",
-  "title": "Claude Code settings and rules don't follow me to my other machines",
-  "summary": "Track three files from ~/.claude, plus ~/.bashrc, in a dotfiles repo, and leave the rest of ~/.claude out.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine (most useful with two or more Omarchy installs).",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.bashrc", "~/.claude/CLAUDE.md", "~/.claude/settings.json", "~/.claude/statusline.sh"],
-  "root": false,
-  "network": true,
-  "installs": [],
-  "runs": ["~/.bashrc"],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code settings and rules don't follow me to my other machines
 
 ## Problem
@@ -137,3 +118,24 @@ the three `~/.claude` files without a backup. Edit them there by hand, or put
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-code-config-does-not-follow-to-other-machines",
+  "title": "Claude Code settings and rules don't follow me to my other machines",
+  "summary": "Track three files from ~/.claude, plus ~/.bashrc, in a dotfiles repo, and leave the rest of ~/.claude out.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine (most useful with two or more Omarchy installs).",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.bashrc", "~/.claude/CLAUDE.md", "~/.claude/settings.json", "~/.claude/statusline.sh"],
+  "root": false,
+  "network": true,
+  "installs": [],
+  "runs": ["~/.bashrc"],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

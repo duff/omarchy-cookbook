@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-sessions-look-alike-in-remote-control",
-  "title": "Claude sessions can't be reached from my phone, or all look alike there",
-  "summary": "Turn on Remote Control at startup and name each session after its project.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286", "herdr": "0.8.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/settings.json", "~/.bashrc"],
-  "root": false,
-  "network": true,
-  "installs": [],
-  "runs": ["a claude shell function in ~/.bashrc", "Remote Control, connected at the start of every Claude Code session"],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude sessions can't be reached from my phone, or all look alike there
 
 ## Problem
@@ -162,3 +143,24 @@ Delete the `claude` function from `~/.bashrc`, and set
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-sessions-look-alike-in-remote-control",
+  "title": "Claude sessions can't be reached from my phone, or all look alike there",
+  "summary": "Turn on Remote Control at startup and name each session after its project.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286", "herdr": "0.8.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/settings.json", "~/.bashrc"],
+  "root": false,
+  "network": true,
+  "installs": [],
+  "runs": ["a claude shell function in ~/.bashrc", "Remote Control, connected at the start of every Claude Code session"],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

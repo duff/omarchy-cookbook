@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/workspaces-open-on-the-wrong-monitor",
-  "title": "Workspaces open on unpredictable monitors",
-  "summary": "Give each monitor its own block of workspace numbers.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Setups with two or more monitors.",
-  "requires": [{"monitors": 2}],
-  "touches": ["~/.config/hypr/monitors.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Workspaces open on unpredictable monitors
 
 ## Problem
@@ -103,3 +84,24 @@ move them or log in again.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/workspaces-open-on-the-wrong-monitor",
+  "title": "Workspaces open on unpredictable monitors",
+  "summary": "Give each monitor its own block of workspace numbers.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Setups with two or more monitors.",
+  "requires": [{"monitors": 2}],
+  "touches": ["~/.config/hypr/monitors.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

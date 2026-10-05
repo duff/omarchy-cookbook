@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/claude-asks-whether-to-push-after-committing",
-  "title": "Claude Code commits but doesn't push, or asks whether to push",
-  "summary": "Make commit and push one step with a global Claude Code rule.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "claude"}],
-  "touches": ["~/.claude/CLAUDE.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Claude Code commits but doesn't push, or asks whether to push
 
 ## Problem
@@ -78,3 +59,24 @@ created it for this rule. New sessions go back to pushing only when asked.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/claude-asks-whether-to-push-after-committing",
+  "title": "Claude Code commits but doesn't push, or asks whether to push",
+  "summary": "Make commit and push one step with a global Claude Code rule.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "claude"}],
+  "touches": ["~/.claude/CLAUDE.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

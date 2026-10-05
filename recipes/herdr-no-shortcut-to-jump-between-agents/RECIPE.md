@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/herdr-no-shortcut-to-jump-between-agents",
-  "title": "Herdr has no shortcut to jump between agents",
-  "summary": "Put the previous and next agent on Alt+Up and Alt+Down, and workspaces on Alt+Shift.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
-  "applies_to": "Every machine.",
-  "requires": [{"command": "herdr"}],
-  "touches": ["~/.config/herdr/config.toml"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Herdr has no shortcut to jump between agents
 
 ## Problem
@@ -92,3 +73,24 @@ Then run `herdr server reload-config`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/herdr-no-shortcut-to-jump-between-agents",
+  "title": "Herdr has no shortcut to jump between agents",
+  "summary": "Put the previous and next agent on Alt+Up and Alt+Down, and workspaces on Alt+Shift.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "herdr": "0.8.2"},
+  "applies_to": "Every machine.",
+  "requires": [{"command": "herdr"}],
+  "touches": ["~/.config/herdr/config.toml"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

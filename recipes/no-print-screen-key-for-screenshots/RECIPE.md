@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/no-print-screen-key-for-screenshots",
-  "title": "No Print Screen key for screenshots",
-  "summary": "Put Omasnap on Super+Shift+S and in the Capture menu.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Keyboards without a Print Screen key (many laptops, Apple and split keyboards).",
-  "requires": [],
-  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/extensions/omarchy-menu.jsonc"],
-  "root": true,
-  "network": false,
-  "installs": ["omasnap"],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # No Print Screen key for screenshots
 
 ## Problem
@@ -127,3 +108,24 @@ Omasnap with `omarchy pkg drop omasnap`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/no-print-screen-key-for-screenshots",
+  "title": "No Print Screen key for screenshots",
+  "summary": "Put Omasnap on Super+Shift+S and in the Capture menu.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Keyboards without a Print Screen key (many laptops, Apple and split keyboards).",
+  "requires": [],
+  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/extensions/omarchy-menu.jsonc"],
+  "root": true,
+  "network": false,
+  "installs": ["omasnap"],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/caps-lock-as-escape-and-hjkl-arrows",
-  "title": "Make Caps Lock Escape on tap and hjkl arrows on hold",
-  "summary": "Use keyd to make Caps Lock Escape on tap and a hjkl arrow layer on hold.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["/etc/keyd/default.conf", "~/.config/hypr/input.lua"],
-  "root": true,
-  "network": false,
-  "installs": ["keyd"],
-  "runs": ["keyd.service"],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Make Caps Lock Escape on tap and hjkl arrows on hold
 
 ## Problem
@@ -118,3 +99,24 @@ keyd, remove it with `omarchy pkg drop keyd`.
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/caps-lock-as-escape-and-hjkl-arrows",
+  "title": "Make Caps Lock Escape on tap and hjkl arrows on hold",
+  "summary": "Use keyd to make Caps Lock Escape on tap and a hjkl arrow layer on hold.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["/etc/keyd/default.conf", "~/.config/hypr/input.lua"],
+  "root": true,
+  "network": false,
+  "installs": ["keyd"],
+  "runs": ["keyd.service"],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

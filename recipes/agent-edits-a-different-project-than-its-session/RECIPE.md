@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/agent-edits-a-different-project-than-its-session",
-  "title": "Coding agent edits another project when a prompt goes to the wrong session",
-  "summary": "Add a global agent rule that ties each session to the repo it was started in.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "grok-cli": "1.0"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.grok/rules/session-project.md", "~/.claude/CLAUDE.md"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": true,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # Coding agent edits another project when a prompt goes to the wrong session
 
 ## Problem
@@ -109,3 +90,24 @@ Delete `~/.grok/rules/session-project.md` or the bullet in
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/agent-edits-a-different-project-than-its-session",
+  "title": "Coding agent edits another project when a prompt goes to the wrong session",
+  "summary": "Add a global agent rule that ties each session to the repo it was started in.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "grok-cli": "1.0"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.grok/rules/session-project.md", "~/.claude/CLAUDE.md"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": true,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```

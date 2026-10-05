@@ -1,22 +1,3 @@
----
-{
-  "id": "duff/no-shortcut-to-open-a-typed-or-pasted-url",
-  "title": "No shortcut to open a typed or pasted URL (or search the web)",
-  "summary": "Super+U opens an address or searches the web.",
-  "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
-  "requires": [],
-  "touches": ["~/.config/omarchy/open-url/open-url", "~/.config/hypr/bindings.lua"],
-  "root": false,
-  "network": false,
-  "installs": [],
-  "runs": [],
-  "agent_config": false,
-  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
-}
----
-
 # No shortcut to open a typed or pasted URL (or search the web)
 
 ## Problem
@@ -107,3 +88,24 @@ Delete the `SUPER + U` binding from `~/.config/hypr/bindings.lua`, run
 ## History
 
 - Created by [@duff](https://github.com/duff) on 2026-10-01.
+
+## Recipe data
+
+```json
+{
+  "id": "duff/no-shortcut-to-open-a-typed-or-pasted-url",
+  "title": "No shortcut to open a typed or pasted URL (or search the web)",
+  "summary": "Super+U opens an address or searches the web.",
+  "version": 1,
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
+  "applies_to": "Every machine.",
+  "requires": [],
+  "touches": ["~/.config/omarchy/open-url/open-url", "~/.config/hypr/bindings.lua"],
+  "root": false,
+  "network": false,
+  "installs": [],
+  "runs": [],
+  "agent_config": false,
+  "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
+}
+```
