@@ -13,7 +13,9 @@ It also starts the agent in `~/Work` (or wherever you clicked from), not in the
 repo that holds your config, so the agent does not see your own rules about
 where changes belong.
 
-And if you have never picked a default agent, the notification never shows up.
+If you have never picked a default agent, crash notifications are off
+today. The watcher skips every crash until one is set. The fix sets one, so
+after it the "Process crashed" notifications start to appear.
 
 ## Why it happens
 
@@ -51,7 +53,10 @@ ExecStart=%h/.config/omarchy/crash/watch
 ```
 
 `~/.config/omarchy/crash/watch` reads the stock watcher fresh on every start
-and changes only the click target:
+and changes only the click target. It writes the edited copy to a file,
+`omarchy-crash-watch` in `$XDG_RUNTIME_DIR` (a folder only you can read,
+cleared when you log out), and runs that file. You can open it to see
+exactly what runs:
 
 ```bash
 #!/bin/bash
@@ -62,9 +67,11 @@ and changes only the click target:
 
 stock="${OMARCHY_PATH:-/usr/share/omarchy}/bin/omarchy-crash-watch"
 here=$(dirname "$(readlink -f "$0")")
+edited="${XDG_RUNTIME_DIR:-/run/user/$UID}/omarchy-crash-watch"
 
 if grep -q -- '--exec omarchy-agent-crash ' "$stock"; then
-  exec bash -c "$(sed "s|--exec omarchy-agent-crash |--exec $here/agent-crash |" "$stock")" omarchy-crash-watch
+  sed "s|--exec omarchy-agent-crash |--exec $here/agent-crash |" "$stock" >"$edited"
+  exec bash "$edited"
 fi
 
 echo "omarchy-crash-watch no longer matches; running it unchanged" >&2
@@ -127,9 +134,14 @@ systemctl --user restart omarchy-crash-watch.service
 systemctl --user status omarchy-crash-watch.service
 ```
 
-The status should list the drop-in under `Drop-In:`, and the running
-`bash -c` command line should contain `--exec` followed by the full path to
-`~/.config/omarchy/crash/agent-crash`, instead of `--exec omarchy-agent-crash`.
+The status should list the drop-in under `Drop-In:`, and the running command
+should be `bash` on `$XDG_RUNTIME_DIR/omarchy-crash-watch`. That edited copy
+should have `--exec` followed by the full path to
+`~/.config/omarchy/crash/agent-crash`, instead of `--exec omarchy-agent-crash`:
+
+```bash
+grep -- '--exec' "$XDG_RUNTIME_DIR/omarchy-crash-watch"
+```
 
 To try it without waiting for a real crash, pick a PID from
 `coredumpctl list` and run the handler by hand:
@@ -143,8 +155,10 @@ An agent window should open in your config repo, in plan mode.
 ## Undo
 
 Delete the drop-in and `~/.config/omarchy/crash/`, then run
-`systemctl --user daemon-reload` and restart the service. To clear the
-default agent too, delete `~/.config/omarchy/defaults/agent`.
+`systemctl --user daemon-reload` and restart the service. The edited copy in
+`$XDG_RUNTIME_DIR` goes away when you log out. To clear the default agent
+too, delete `~/.config/omarchy/defaults/agent`. That also turns crash
+notifications off again.
 
 ## Notes
 
@@ -167,11 +181,11 @@ default agent too, delete `~/.config/omarchy/defaults/agent`.
   "id": "duff/crash-notification-agent-changes-files-without-asking",
   "title": "Clicking \"Process crashed\" starts an agent that may change files without asking",
   "summary": "Open the crash diagnosis agent in plan mode, from your config repo.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Every machine.",
   "requires": [],
-  "touches": ["~/.config/omarchy/defaults/agent", "~/.config/systemd/user/omarchy-crash-watch.service.d/override.conf", "~/.config/omarchy/crash/watch", "~/.config/omarchy/crash/agent-crash", "~/.config/omarchy/crash/bin/omarchy-agent"],
+  "touches": ["~/.config/omarchy/defaults/agent", "~/.config/systemd/user/omarchy-crash-watch.service.d/override.conf", "~/.config/omarchy/crash/watch", "~/.config/omarchy/crash/agent-crash", "~/.config/omarchy/crash/bin/omarchy-agent", "/run/user/<uid>/omarchy-crash-watch"],
   "root": false,
   "network": false,
   "installs": ["claude"],
