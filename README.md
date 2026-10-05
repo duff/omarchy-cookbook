@@ -33,7 +33,7 @@ tell whether it applies to yours.
 
 ## Apps, web apps, and links
 
-- [A launcher shortcut opens a second window instead of focusing the open one](recipes/launcher-shortcut-opens-a-second-window/RECIPE.md): why stock focus misses some apps, and how to fix shortcuts and launcher entries.
+- [A launcher shortcut opens a second window instead of focusing the open one](recipes/launcher-shortcut-opens-a-second-window/RECIPE.md): why stock focus misses some apps, how to fix shortcuts, and every web app in the launcher.
 - [Two web app windows for the same site share a login or get mixed up](recipes/two-web-app-windows-for-the-same-site-get-mixed-up/RECIPE.md): separate profiles for two accounts, and telling production from a local copy.
 - [A web app opens every link in a new window, or sends links to a browser tab](recipes/web-app-opens-links-in-new-windows-or-browser-tabs/RECIPE.md): use a regular window, or an installed Chrome app.
 - [mailto: links open in Chrome instead of HEY](recipes/mailto-links-open-in-chrome-instead-of-hey/RECIPE.md): put HEY back as the handler and keep it there after updates.

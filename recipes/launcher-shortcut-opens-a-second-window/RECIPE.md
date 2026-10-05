@@ -127,76 +127,146 @@ executable with `chmod +x`.
 ### Launcher (Super+Space) entries
 
 The launcher runs the `Exec=` line of each `.desktop` file in
-`~/.local/share/applications/`. This script rewrites that line to launch or
-focus. It skips any entry that isn't installed. Save it as
-`~/.config/omarchy/launchers/apply.sh`:
+`~/.local/share/applications/`. This script rewrites the line of every web
+app entry to launch or focus, working out the window class from the entry's
+URL. Save it as `~/.config/omarchy/launchers/focus-webapps`:
 
 ```bash
 #!/usr/bin/env bash
-# Make these launcher (Super+Space) entries focus the open window instead of
-# opening another. Omarchy and `omarchy webapp install` write the entries, so
-# this rewrites their Exec line in place. An entry this machine lacks is skipped.
+# Make every web app launcher focus its open window instead of opening another.
+# `omarchy webapp install` writes Exec=omarchy-launch-webapp <url>; this turns
+# that into omarchy-launch-or-focus <class> "omarchy-launch-webapp '<url>'".
+# Keeping omarchy-launch-webapp in the line lets `omarchy webapp remove` still
+# find the app. Older omarchy-launch-or-focus-webapp entries move to the same
+# form and keep their pattern. Entries with any other Exec are left alone.
+# focus-webapps.path runs this whenever a launcher is added or rewritten, so
+# new web apps get it too.
 #
-# The pattern is the window's class. Chrome names an app window
-# chrome-<host>_<path with / as _>-Default and leaves out the ?query and #fragment.
+# Chrome names an app window chrome-<host>_<path with / as _>-Default and
+# leaves out the ?query and #fragment.
 set -euo pipefail
 
 apps="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+# The path unit fires on every write here, so one run can start while another
+# is still going. Take turns.
+exec 9>"${XDG_RUNTIME_DIR:-/tmp}/focus-webapps.lock"
+flock 9
 
-while IFS='|' read -r name class; do
-  file="$apps/$name.desktop"
+plain_re='^Exec=omarchy-launch-webapp "?([^" ]+)"?$'
+focus_re='^Exec=omarchy-launch-or-focus-webapp "([^"]+)" "?([^" ]+)"?$'
+
+for file in "$apps"/*.desktop; do
   [[ -f $file ]] || continue
-  sed -i -E "s#^Exec=omarchy-launch-(webapp|or-focus-webapp \"[^\"]*\") #Exec=omarchy-launch-or-focus-webapp \"$class\" #" "$file"
-done <<'APPS'
-GitHub|chrome-github.com__-Default
-Google Photos|chrome-photos.google.com__-Default
-Todoist|chrome-app.todoist.com__app-Default
-YouTube|chrome-youtube.com__-Default
-X|chrome-x.com__-Default
-APPS
+  line=$(grep -m1 '^Exec=' "$file") || continue
+
+  if [[ $line =~ $focus_re ]]; then
+    class=${BASH_REMATCH[1]}
+    url=${BASH_REMATCH[2]}
+  elif [[ $line =~ $plain_re ]]; then
+    url=${BASH_REMATCH[1]}
+    rest=${url#*://}
+    rest=${rest%%#*}
+    rest=${rest%%\?*}
+    host=${rest%%/*}
+    path=${rest:${#host}}
+    path=${path:-/}
+    class="chrome-${host}_${path//\//_}-Default"
+  else
+    continue
+  fi
+
+  # A rewritten entry matches neither pattern, so the path unit's rerun after
+  # this write changes nothing. The single quotes keep a # or & in the URL part
+  # of it when omarchy-launch-or-focus runs the command.
+  new="Exec=omarchy-launch-or-focus \"$class\" \"omarchy-launch-webapp '$url'\""
+  # Write a temp file beside it, then rename it over the launcher, so a reader
+  # never sees a half-written file.
+  tmp=$(mktemp "$apps/.focus-webapps.XXXXXX")
+  awk -v new="$new" '!done && /^Exec=/ { print new; done = 1; next } { print }' "$file" > "$tmp"
+  chmod --reference="$file" "$tmp"
+  mv "$tmp" "$file"
+done
 ```
 
-The left column is the `.desktop` file name without the extension. The sed
-also matches lines it already rewrote, so you can run the script again after
-you change a class.
+New web apps, and stock entries that `omarchy refresh applications` (or an
+update) copies back, need the same rewrite. A systemd path unit reruns the
+script whenever something in that folder changes.
+
+`~/.config/systemd/user/focus-webapps.path`:
+
+```ini
+[Unit]
+Description=Make new web app launchers focus their open window
+
+[Path]
+PathChanged=%h/.local/share/applications
+Unit=focus-webapps.service
+
+[Install]
+WantedBy=default.target
+```
+
+`~/.config/systemd/user/focus-webapps.service`:
+
+```ini
+[Unit]
+Description=Make web app launchers focus their open window
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/omarchy/launchers/focus-webapps
+```
+
+The script only writes entries it changes, and a rewritten entry matches
+neither pattern, so its own writes don't start it again in a loop.
 
 HEY's entry is also the `mailto:` handler, so it needs a small launch script
 instead. See
 [mailto: links open in Chrome instead of HEY](../mailto-links-open-in-chrome-instead-of-hey/RECIPE.md).
+Its launch script replaces the `Exec=` line, so this script leaves it alone.
 
 ## Apply and check
 
 ```bash
 hyprctl reload
 hyprctl configerrors
-chmod +x ~/.config/omarchy/launchers/apply.sh ~/.config/omarchy/browser/focus
-~/.config/omarchy/launchers/apply.sh
-grep -h '^Exec=' ~/.local/share/applications/{YouTube,X}.desktop
+chmod +x ~/.config/omarchy/launchers/focus-webapps ~/.config/omarchy/browser/focus
+systemctl --user daemon-reload
+systemctl --user enable --now focus-webapps.path
+~/.config/omarchy/launchers/focus-webapps
+grep -h '^Exec=omarchy-launch-or-focus ' ~/.local/share/applications/*.desktop
 ```
+
+Every web app should be listed, with its window class first.
 
 Press a shortcut twice, or pick the same launcher entry twice. The second
 time, the open window gets focus and no new one opens.
 
 ## Undo
 
-Delete your lines from `bindings.lua`, and delete
-`~/.config/omarchy/browser/focus` and `~/.config/omarchy/launchers/apply.sh`.
-To get the stock launcher entries back, reinstall the web app with
-`omarchy webapp install`.
+Delete your lines from `bindings.lua`, then stop the watcher and delete the
+files:
+
+```bash
+systemctl --user disable --now focus-webapps.path
+rm ~/.config/systemd/user/focus-webapps.{path,service}
+rm ~/.config/omarchy/launchers/focus-webapps ~/.config/omarchy/browser/focus
+systemctl --user daemon-reload
+```
+
+The rewritten entries keep working, and focus as before. To get the stock
+entries back, run `omarchy refresh applications` for Omarchy's own web apps,
+and reinstall others with `omarchy webapp install`.
 
 ## Notes
 
-- New web apps: `omarchy webapp install "GitHub" "https://github.com/" <icon>`
-  writes an `omarchy-launch-webapp` entry. Add its name and class to the list
-  and run the script again. `omarchy webapp install` also takes an optional
-  fourth argument, a full custom `Exec` command, so you can write
-  `omarchy-launch-or-focus-webapp "<class>" "<url>"` there from the start.
-- `omarchy refresh applications` copies the stock entries (HEY, X, YouTube,
-  Google Photos, and others) back over yours, and an update migration can
-  run it too. Run the script again afterwards, or call it from a `post-update`
-  hook (see
-  [mailto: links open in Chrome instead of HEY](../mailto-links-open-in-chrome-instead-of-hey/RECIPE.md)
-  for an example).
+- An earlier version of this recipe rewrote a hand-made list of entries to
+  `omarchy-launch-or-focus-webapp "<class>" <url>`. The script moves those to
+  the new form and keeps their class, so a hand-picked pattern survives.
+- A site that opens its app window on a different address than the one you
+  installed (a redirect to `/app`, say) gets a class that doesn't match.
+  Check with `hyprctl clients -j | jq -r '.[].class'` and install the web app
+  with the address the window ends up on.
 - To swap two stock web app keys (for example, Grok on Super+Shift+A and
   ChatGPT on Super+Shift+Alt+A), unbind both keys before you bind either
   one. Otherwise both actions fire on the same key.
@@ -211,16 +281,16 @@ To get the stock launcher entries back, reinstall the web app with
 {
   "id": "duff/launcher-shortcut-opens-a-second-window",
   "title": "A launcher shortcut opens a second window instead of focusing the open one",
-  "summary": "Rebind shortcuts and launcher entries to focus the open window by its class.",
-  "version": 1,
+  "summary": "Rebind shortcuts, and rewrite every web app launcher, to focus the open window by its class.",
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Every machine.",
   "requires": [],
-  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/browser/focus", "~/.config/omarchy/launchers/apply.sh", "~/.local/share/applications/GitHub.desktop", "~/.local/share/applications/Google Photos.desktop", "~/.local/share/applications/Todoist.desktop", "~/.local/share/applications/YouTube.desktop", "~/.local/share/applications/X.desktop"],
+  "touches": ["~/.config/hypr/bindings.lua", "~/.config/omarchy/browser/focus", "~/.config/omarchy/launchers/focus-webapps", "~/.config/systemd/user/focus-webapps.path", "~/.config/systemd/user/focus-webapps.service", "~/.local/share/applications/*.desktop"],
   "root": false,
   "network": false,
   "installs": [],
-  "runs": [],
+  "runs": ["focus-webapps.path, a user systemd path unit that reruns focus-webapps when a launcher changes"],
   "agent_config": false,
   "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]
 }
