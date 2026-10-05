@@ -36,8 +36,12 @@ o.bind("CTRL + ALT + DELETE", "Close all windows", "omarchy-hyprland-window-clos
 
 User menu entries in `~/.config/omarchy/extensions/omarchy-menu.jsonc` merge
 over the stock ones by id. A row without an `action` is a submenu, so
-redefining `system.reboot` without one turns it into a "Reboot now?" submenu,
-and two child ids give it its choices:
+redefining `system.reboot` without one turns it into a "Reboot now?" submenu.
+The stock template's comment says existing fields are kept unless overridden,
+but the shell's `normalizeItem` (in
+`/usr/share/omarchy/shell/plugins/menu/MenuModel.js`) fills every field a
+user entry leaves out with a blank before the merge, so the stock `action` is
+replaced with nothing. Two child ids give the submenu its choices:
 
 ```jsonc
 {
