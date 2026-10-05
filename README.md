@@ -14,7 +14,7 @@ tell whether it applies to yours.
 - [Scrolling direction feels backwards on the touchpad and mouse](recipes/scrolling-direction-feels-backwards/RECIPE.md): turn on natural scrolling for both; Hyprland has separate switches.
 - [Moving the mouse steals keyboard focus](recipes/hovering-mouse-steals-keyboard-focus/RECIPE.md): click to focus, while hover still scrolls.
 - [A light palm tap on the touchpad clicks things](recipes/touchpad-palm-tap-clicks-things/RECIPE.md): turn off tap-to-click.
-- [Gaming mouse moves the cursor too fast to place it precisely](recipes/gaming-mouse-cursor-too-fast/RECIPE.md): a per-device acceleration curve, precise when slow and far on a flick.
+- [High-DPI gaming mouse moves the cursor too fast to place it precisely](recipes/gaming-mouse-cursor-too-fast/RECIPE.md): a per-device acceleration curve, precise when slow and far on a flick.
 - [MacBook T2 trackpad moves the cursor while typing](recipes/macbook-t2-trackpad-moves-cursor-while-typing/RECIPE.md): mark the pad internal, plus a small daemon that pauses it after each key.
 - [Make Caps Lock Escape on tap and hjkl arrows on hold](recipes/caps-lock-as-escape-and-hjkl-arrows/RECIPE.md): with keyd.
 - [Swap Alt and Super on the laptop keyboard only](recipes/swap-alt-and-super-on-laptop-keyboard-only/RECIPE.md): per-device keyd config that leaves an external keyboard alone.
@@ -55,7 +55,7 @@ tell whether it applies to yours.
 
 ## Laptop, power, network, and audio
 
-- [Laptop screen stays black after undocking with the lid shut and sleeping](recipes/laptop-screen-stays-black-after-undocked-sleep/RECIPE.md): keep the panel off while closed and restore it on wake.
+- [Intel laptop screen stays black after undocking with the lid shut and sleeping](recipes/laptop-screen-stays-black-after-undocked-sleep/RECIPE.md): keep the panel off while closed and restore it on wake.
 - [Laptop used as a headless server sleeps when the lid is shut](recipes/laptop-server-sleeps-when-lid-is-shut/RECIPE.md): ignore the lid and allow only key logins over SSH.
 - [Laptop Wi-Fi falls back to slow 2.4 GHz with the lid shut](recipes/laptop-wifi-falls-back-to-2-4-ghz-with-lid-shut/RECIPE.md): WPA3 and a pinned 5 GHz band.
 - [Screensaver starts too soon while reading](recipes/screensaver-starts-too-soon/RECIPE.md): longer idle timers.

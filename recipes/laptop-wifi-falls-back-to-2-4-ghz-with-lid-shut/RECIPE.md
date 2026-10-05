@@ -2,7 +2,8 @@
 
 ## Problem
 
-Two related symptoms on the same laptop:
+This is for a laptop used docked with the lid shut, on a tri-band router
+(2.4, 5, and 6 GHz). Two related symptoms:
 
 - The router has a 6 GHz radio, but the laptop never connects to it.
 - Docked with the lid shut, the connection drops within seconds and comes
@@ -129,7 +130,7 @@ If you saved the script, delete it as well.
   "summary": "Switch the saved Wi-Fi profile to WPA3 and pin it to the 5 GHz band.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Laptops on a tri-band (2.4/5/6 GHz) router, especially used docked with the lid shut (tested on a Dell XPS 16 with Intel BE211 Wi-Fi).",
+  "applies_to": "Laptops used docked with the lid shut on a tri-band (2.4/5/6 GHz) router (tested on a Dell XPS 16 with Intel BE211 Wi-Fi).",
   "requires": [{"laptop": true}],
   "touches": ["/etc/NetworkManager/system-connections/<network>.nmconnection", "~/.config/nm/apply.sh"],
   "root": true,

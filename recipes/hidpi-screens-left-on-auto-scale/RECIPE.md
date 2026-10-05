@@ -2,6 +2,10 @@
 
 ## Problem
 
+This is for machines where every screen is a HiDPI panel built for 2x. The
+fix gives all screens the same scale, so a regular-density monitor without
+its own rule would come out twice as big.
+
 Stock Omarchy sets every screen's scale to `"auto"`. Hyprland then guesses a
 scale for each screen from the pixel density in its EDID. On a desk of panels
 built for exactly 2x (a 5K Studio Display, a 6K XDR, a 3200x2000 laptop panel)
@@ -84,7 +88,7 @@ then run `hyprctl reload`.
   "summary": "Pin every screen's scale to 2 instead of auto.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Machines with 2x (\"Retina\") panels, such as a Dell XPS 16 with Apple Studio Displays or a Pro Display XDR, or a MacBook Air.",
+  "applies_to": "Machines where every screen is a 2x (\"Retina\") panel, such as a Dell XPS 16 with Apple Studio Displays or a Pro Display XDR, or a MacBook Air.",
   "requires": [],
   "touches": ["~/.config/hypr/monitors.lua"],
   "root": false,

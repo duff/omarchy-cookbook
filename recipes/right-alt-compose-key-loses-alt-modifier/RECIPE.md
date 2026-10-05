@@ -2,6 +2,9 @@
 
 ## Problem
 
+This only matters once you move Compose off Caps Lock and onto Right Alt.
+With stock Omarchy's Compose key, Right Alt is a plain Alt and works fine.
+
 Stock Omarchy makes Caps Lock the Compose key. If you want Caps Lock for
 something else (Escape, an arrow layer), the obvious move is to put Compose on
 Right Alt with the XKB option `compose:ralt`. That works for Compose, but Right
@@ -127,7 +130,7 @@ omarchy pkg drop keyd
   "summary": "Make Right Alt Compose on tap and Alt on hold, with keyd.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "Every machine.",
+  "applies_to": "Machines that move Compose from Caps Lock to Right Alt.",
   "requires": [],
   "touches": ["/etc/keyd/default.conf", "~/.config/hypr/input.lua"],
   "root": true,

@@ -2,6 +2,9 @@
 
 ## Problem
 
+This is for machines with several microphones, most often a laptop on a dock
+with a webcam. With only one microphone there is nothing to pick wrongly.
+
 Plug a laptop into a dock and the default microphone changes to an input
 nobody is using, such as the dock's empty rear audio jack. Dictation
 (Voxtype), calls, and recordings get silence until you pick the right
@@ -21,7 +24,9 @@ empty jack won.
 ## Fix
 
 Raise the priority of the microphones you want, in order. Create
-`~/.config/wireplumber/wireplumber.conf.d/51-mic-priority.conf`:
+`~/.config/wireplumber/wireplumber.conf.d/51-mic-priority.conf`. The node
+names below are this machine's webcam and laptop microphones; replace them
+with yours:
 
 ```
 ## Default microphone on this laptop. WirePlumber picks the source with the

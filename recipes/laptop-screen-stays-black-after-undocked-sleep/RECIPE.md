@@ -1,6 +1,10 @@
-# Laptop screen stays black after undocking with the lid shut and sleeping
+# Intel laptop screen stays black after undocking with the lid shut and sleeping
 
 ## Problem
+
+This is for laptops with Intel graphics that you use docked with the lid
+shut. The fix works through Intel's `intel_backlight` and the panel's
+`card0-eDP-1` connector.
 
 The laptop sits closed on a desk, driving external displays. You unplug the
 displays and carry it away with the lid still shut, and it suspends. When you
@@ -276,7 +280,7 @@ two scripts in `~/.config/logind/`, then log out and back in to stop the loop.
 ```json
 {
   "id": "duff/laptop-screen-stays-black-after-undocked-sleep",
-  "title": "Laptop screen stays black after undocking with the lid shut and sleeping",
+  "title": "Intel laptop screen stays black after undocking with the lid shut and sleeping",
   "summary": "Keep the panel off while the lid is shut, and turn it back on after the wake.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},

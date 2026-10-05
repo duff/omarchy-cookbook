@@ -121,7 +121,7 @@ omarchy refresh applications
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Every machine that uses Google Chrome as the default browser.",
-  "requires": [],
+  "requires": [{"command": "google-chrome-stable"}],
   "touches": ["~/.config/omarchy/hooks/post-update.d/set-mailto-hey.hook", "~/.config/omarchy/hey/launch", "~/.local/share/applications/HEY.desktop", "~/.config/mimeapps.list"],
   "root": false,
   "network": false,

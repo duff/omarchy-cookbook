@@ -1,9 +1,12 @@
-# Gaming mouse moves the cursor too fast to place it precisely
+# High-DPI gaming mouse moves the cursor too fast to place it precisely
 
 ## Problem
 
-A high-DPI gaming mouse makes the cursor jump: small, slow movements overshoot
-the target, so hitting a window border or a small button takes several tries.
+This is for a high-DPI gaming mouse. An ordinary office mouse is fine with
+the stock settings.
+
+A high-DPI mouse makes the cursor jump: small, slow movements overshoot the
+target, so hitting a window border or a small button takes several tries.
 Lowering the speed overall fixes that but then a long move across a wide or
 multi-monitor desk takes several swipes.
 
@@ -87,11 +90,11 @@ Delete the `viper_curve` line and the `hl.device` lines.
 ```json
 {
   "id": "duff/gaming-mouse-cursor-too-fast",
-  "title": "Gaming mouse moves the cursor too fast to place it precisely",
+  "title": "High-DPI gaming mouse moves the cursor too fast to place it precisely",
   "summary": "Give the mouse its own acceleration curve, precise when slow and far on a flick.",
   "version": 1,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
-  "applies_to": "High-DPI mice (tested with a Razer Viper V3 Pro).",
+  "applies_to": "High-DPI gaming mice (tested with a Razer Viper V3 Pro).",
   "requires": [],
   "touches": ["~/.config/hypr/input.lua"],
   "root": false,
