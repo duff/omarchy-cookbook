@@ -48,7 +48,7 @@ How it decides:
 | You type | Opens |
 |---|---|
 | `https://example.com/a` (any `scheme://`) | as typed |
-| `localhost:3000/x`, `192.168.1.10:8080` | `http://` + text |
+| `localhost:3000/x`, `192.0.2.10:8080` | `http://` + text |
 | `example.com/path` (no spaces, ends in a 2+ letter TLD) | `https://` + text |
 | anything else | a DuckDuckGo search |
 

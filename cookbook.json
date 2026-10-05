@@ -3,7 +3,6 @@
   "kitchen": "v0.3.0",
   "description": "Duff's Omarchy customizations, one problem per recipe.",
   "allow": [
-    "Duff",
-    "192.168.1.10"
+    "Duff"
   ]
 }
