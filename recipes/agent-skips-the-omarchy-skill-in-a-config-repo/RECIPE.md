@@ -12,6 +12,11 @@ which the next `omarchy update` replaces.
 Asked to edit `~/.config/hypr/bindings.lua` directly, the same agent loads the
 skill first.
 
+Anyone set up with [omarchy-kitchen](https://github.com/duff/omarchy-kitchen)
+already has this: the private config repo it creates tells agents to load the
+Omarchy skill for every task. This recipe is for people keeping their own
+config repo.
+
 ## Why it happens
 
 Omarchy ships an `omarchy` skill (`/usr/share/omarchy/default/agents/skills/omarchy/`)

@@ -9,6 +9,11 @@ machine only (display scale, which speech model a laptop can run, a keyboard
 remap for one built-in keyboard), and a full copy drags along caches, logs, and
 files that still match the stock templates.
 
+Anyone set up with [omarchy-kitchen](https://github.com/duff/omarchy-kitchen)
+already has this: its private config repo comes with the shared layer, the
+per-machine layer, and both scripts. This recipe is for people keeping their
+own config repo.
+
 Forking Omarchy itself is not the answer. Everything under
 `/usr/share/omarchy/` is replaced on every `omarchy update`.
 
@@ -242,9 +247,9 @@ model one laptop can run is too big for another. Store that value in
 shared copy, and have `install.sh` put it back.
 
 Put it back immediately after the shared file is copied, not at the end of
-`install.sh`. With `set -e`, any later step that fails (a `sudo` prompt with no
-terminal, for example) stops the script, and Voxtype refuses to record with the
-model line missing.
+`install.sh`. With `set -e`, any later step that fails (a password prompt with
+no terminal to answer it, for example) stops the script, and Voxtype refuses
+to record with the model line missing.
 
 ```bash
 # In install.sh, right after install_tree for config/ and hosts/$host/.
@@ -293,21 +298,21 @@ so it is not copied into `~/.config`.
 ### A bootstrap for a new machine
 
 `install.sh` picks `hosts/$(hostname)/`, so a fresh install has to have the
-right hostname first. A small `bootstrap.sh` can do the one-time steps:
+right hostname first. A small `bootstrap.sh` can check that and run the
+one-time steps:
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")" && pwd)
-target_host=laptop
+host=$(hostname)
 failed=()
 
-if [[ $(hostname) != "$target_host" ]]; then
-  echo "This machine is named $(hostname)."
-  read -r -p "Rename it to ${target_host} and continue? [y/N] " answer
+if [[ ! -d $root/hosts/$host ]]; then
+  echo "This machine is named $host, and the repo has no hosts/$host/."
+  read -r -p "Continue with only the shared layer? [y/N] " answer
   [[ $answer == [yY] || $answer == [yY][eE][sS] ]] || exit 1
-  sudo hostnamectl set-hostname "$target_host"
 fi
 
 # Run each step, keep going on failure, and list the failures at the end.
@@ -322,8 +327,6 @@ step() {
   return 0
 }
 
-step "Packages" omarchy pkg add 1password 1password-cli keyd
-step "Chrome" omarchy install browser chrome
 step "Overlay" "$root/install.sh"
 
 if ((${#failed[@]})); then
@@ -332,8 +335,12 @@ if ((${#failed[@]})); then
 fi
 ```
 
-End it with a printed checklist of what still needs a person: logging out so
-new services start, signing in to apps, and enabling an SSH agent.
+If the machine has the wrong name, answer no, rename it, and run the script
+again. Add a `step` line before the overlay for each package or app your
+shared config expects, so they are in place when `install.sh` copies their
+config. End the script with a printed checklist of what still needs a person:
+logging out so new services start, signing in to apps, and enabling an SSH
+agent.
 
 Get the repo onto the new machine over HTTPS (`gh auth login`, then
 `gh repo clone`), since an SSH agent such as 1Password's is not set up yet.
@@ -363,11 +370,8 @@ stop running `install.sh` there. To put back what they changed:
   `hyprctl reload`.
 - Delete the post-update hook:
   `rm ~/.config/omarchy/hooks/post-update.d/apply-keyd.hook`.
-- If `bootstrap.sh` renamed the machine, rename it back with
-  `sudo hostnamectl set-hostname <old-name>`.
-- Remove what `bootstrap.sh` installed, if you don't want it otherwise:
-  `omarchy pkg drop 1password 1password-cli keyd` and
-  `omarchy remove browser chrome`.
+- Remove anything you added to `bootstrap.sh` and installed with it, if you
+  don't want it otherwise.
 
 ## Notes
 
@@ -393,14 +397,14 @@ stop running `install.sh` there. To put back what they changed:
   "id": "duff/customizations-do-not-follow-to-other-machines",
   "title": "My Omarchy customizations don't follow me to my other machines",
   "summary": "A git overlay with a shared layer and a per-machine layer.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Every machine (most useful with two or more Omarchy installs).",
   "requires": [],
-  "touches": ["~/.config/", "~/.config/hypr/autostart.lua", "~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/voxtype/config.toml", "~/.XCompose", "~/.bashrc", "~/.ssh/config", "/etc/hostname"],
-  "root": true,
+  "touches": ["~/.config/", "~/.config/hypr/autostart.lua", "~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/voxtype/config.toml", "~/.XCompose", "~/.bashrc", "~/.ssh/config"],
+  "root": false,
   "network": true,
-  "installs": ["1password", "1password-cli", "keyd", "aur/google-chrome"],
+  "installs": [],
   "runs": ["~/.config/omarchy/hooks/post-update.d/apply-keyd.hook", "~/.config/hypr/autostart.lua", "~/.bashrc"],
   "agent_config": false,
   "history": [{"who": "duff", "did": "created", "date": "2026-10-01"}]

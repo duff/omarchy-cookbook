@@ -10,6 +10,11 @@ agent or script runs the push.
 
 `gh auth status` still says you are logged in.
 
+Anyone set up with [omarchy-kitchen](https://github.com/duff/omarchy-kitchen)
+already has this: setup points Git at `gh` by name, and the private config
+repo's `snapshot.sh` keeps the helper that way. This recipe is for people
+keeping their own config repo.
+
 ## Why it happens
 
 Omarchy ships `~/.config/git/config` from `/usr/share/omarchy/config/git/config`
