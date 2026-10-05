@@ -16,16 +16,20 @@ its own `omarchy` and `diagnose-crash` skills into each agent's skills folder.
 It ships no rules about commit messages. Each agent falls back on its own
 habits.
 
-Grok loads every `*.md` file in `~/.grok/rules/` as a rule for every project,
-whatever directory it was started in (see "Rules Directories" in
-`~/.grok/docs/user-guide/12-project-rules.md`). That folder starts empty.
+Each agent has a place for rules that load in every project, and Omarchy
+leaves it empty:
+
+- Claude Code reads `~/.claude/CLAUDE.md` at the start of every session, in
+  every project. Omarchy does not create that file.
+- Grok loads every `*.md` file in `~/.grok/rules/` as a rule for every
+  project, whatever directory it was started in (see "Rules Directories" in
+  `~/.grok/docs/user-guide/12-project-rules.md`). That folder starts empty.
 
 ## Fix
 
-Write the convention down once, in a global rule. This one follows
-[Tim Pope's note on commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-
-`~/.grok/rules/git-commits.md`:
+Write the convention down once, as a global rule for each agent you use. This
+one follows
+[Tim Pope's note on commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html):
 
 ````markdown
 # Git commits
@@ -48,18 +52,34 @@ characters or so.
 The first line limits the rule to commits you asked for. Without it, a rule
 that talks about commits can read as a nudge to commit on its own.
 
-For Claude Code, the same text goes in `~/.claude/CLAUDE.md`, which Claude
-Code reads in every project. In a single repo, put it in the repo's
-`AGENTS.md` or `CLAUDE.md` so every agent working there sees it.
+### Claude Code
+
+Add the rule to `~/.claude/CLAUDE.md`, and create the file if it does not
+exist. If it already holds other rules, add the `# Git commits` section at
+the end.
+
+### Grok
+
+Save the rule as its own file, `~/.grok/rules/git-commits.md`.
+
+### One repo only
+
+To set the convention for a single repo instead, put the rule in the repo's
+`AGENTS.md` or `CLAUDE.md`, so every agent working there sees it.
 
 ### Keep the rule on every machine
 
 If you sync your config with a git repo (see
 [My Omarchy customizations don't follow me to my other machines](../customizations-do-not-follow-to-other-machines/RECIPE.md)),
-track only the rule files, not the rest of `~/.grok`, which holds your login
-and session history.
+track only the rule files, not the rest of `~/.claude` or `~/.grok`, which
+hold your login and session history.
 
-In `install.sh`:
+For Claude Code, track `~/.claude/CLAUDE.md`.
+[Claude Code settings and rules don't follow me to my other machines](../claude-code-config-does-not-follow-to-other-machines/RECIPE.md)
+has the `install.sh` and `snapshot.sh` lines, and the list of what in
+`~/.claude` to leave out.
+
+For Grok, in `install.sh`:
 
 ```bash
 if [[ -d $root/grok/rules ]]; then
@@ -82,21 +102,27 @@ anyone reading the history knows what the messages are meant to look like.
 
 ## Apply and check
 
-Rules load when a session starts. Start a new Grok session in any repo and
-run:
+Rules load when a session starts.
+
+For Claude Code, start a new `claude` session in any repo. It reads
+`~/.claude/CLAUDE.md` at start.
+
+For Grok, start a new session in any repo and run:
 
 ```bash
 grok inspect
 ```
 
-`git-commits.md` should be listed as a global rule. Then make a change, ask
-the agent to commit it, and check the result with `git log -1`.
+`git-commits.md` should be listed as a global rule.
+
+With either agent, make a change, ask it to commit, and check the result with
+`git log -1`.
 
 ## Undo
 
-Delete `~/.grok/rules/git-commits.md` (and the lines in your sync scripts).
-For Claude Code, remove the rule from `~/.claude/CLAUDE.md` (or from the
-repo's `AGENTS.md` or `CLAUDE.md`).
+Delete the `# Git commits` section from `~/.claude/CLAUDE.md`, and delete
+`~/.grok/rules/git-commits.md`. If you put the rule in a repo's `AGENTS.md`
+or `CLAUDE.md`, remove it there. Take the lines out of your sync scripts too.
 
 ## Notes
 
@@ -115,10 +141,10 @@ repo's `AGENTS.md` or `CLAUDE.md`).
   "title": "Coding agent writes long, unwrapped, or file-list commit messages",
   "summary": "Give coding agents one global rule for commit messages.",
   "version": 1,
-  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "grok-cli": "1.0"},
+  "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286", "grok-cli": "1.0"},
   "applies_to": "Every machine.",
   "requires": [],
-  "touches": ["~/.grok/rules/git-commits.md", "~/.claude/CLAUDE.md"],
+  "touches": ["~/.claude/CLAUDE.md", "~/.grok/rules/git-commits.md"],
   "root": false,
   "network": false,
   "installs": [],
