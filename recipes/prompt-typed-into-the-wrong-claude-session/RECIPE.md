@@ -8,6 +8,9 @@ type a request meant for `web-app` into the `my-dotfiles` session. Claude
 tries to help anyway: it reads the other repo, edits files there, or bends
 the request into a change in the current project.
 
+For Grok, see
+[Grok edits another project when a prompt goes to the wrong session](../agent-edits-a-different-project-than-its-session/RECIPE.md).
+
 ## Why it happens
 
 Claude Code starts in the folder you launched it from but is not limited to
@@ -51,8 +54,6 @@ Delete the line from `~/.claude/CLAUDE.md`.
   does the same in Remote Control and Herdr.
 - When you really do want one session to touch another repo, say so plainly
   in the prompt.
-- [Coding agent edits another project when a prompt goes to the wrong session](../agent-edits-a-different-project-than-its-session/RECIPE.md)
-  gives the same rule for Grok and other agents.
 
 ## History
 

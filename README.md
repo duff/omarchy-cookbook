@@ -95,7 +95,7 @@ tell whether it applies to yours.
 ## Agent rules
 
 - [Coding agent writes long, unwrapped, or file-list commit messages](recipes/agent-commit-messages-ignore-git-conventions/RECIPE.md): a global commit-message rule.
-- [Coding agent edits another project when a prompt goes to the wrong session](recipes/agent-edits-a-different-project-than-its-session/RECIPE.md): tie each session to its own repo.
+- [Grok edits another project when a prompt goes to the wrong session](recipes/agent-edits-a-different-project-than-its-session/RECIPE.md): tie each session to its own repo.
 - [Coding agent skips the Omarchy skill in a dotfiles repo](recipes/agent-skips-the-omarchy-skill-in-a-config-repo/RECIPE.md): a repo `CLAUDE.md` that always loads it.
 
 ## Developer tools
