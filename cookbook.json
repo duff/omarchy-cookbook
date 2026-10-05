@@ -1,6 +1,6 @@
 {
   "owner": "duff",
-  "kitchen": "v0.2.0",
+  "kitchen": "v0.3.0",
   "description": "Duff's Omarchy customizations, one problem per recipe.",
   "allow": [
     "Duff",

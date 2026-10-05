@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: duff/omarchy-kitchen@v0.2.0
+      - uses: duff/omarchy-kitchen@v0.3.0
