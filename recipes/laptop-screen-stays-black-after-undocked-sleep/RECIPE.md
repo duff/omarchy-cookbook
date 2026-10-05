@@ -30,9 +30,9 @@ Hyprland marks the panel "on" while its backlight (`bl_power`) stays off.
 
 ## Fix
 
-The fix has two parts: a user loop that keeps the panel disabled while the
-lid is shut and nothing is docked, and a system sleep hook that sets up the
-right path on wake.
+The fix has two parts: a user loop that keeps the panel disabled when the
+lid was shut at the desk and the displays are then unplugged, and a system
+sleep hook that sets up the right path on wake.
 
 ### 1. Keep the panel off while the lid is shut
 
@@ -44,6 +44,10 @@ right path on wake.
 # even though the lid is still shut and the panel is powered down. That
 # rejected modeset is what suspend saves. Hold the panel disabled until the
 # lid is actually open, then hand it back to the normal clamshell path.
+#
+# Only when the lid was shut while docked. A plain lid close away from the
+# desk keeps the panel on: it is the only output, and the lock screen needs
+# it before suspend. Turning it off there left the session unlocked.
 
 set -u
 
@@ -64,8 +68,15 @@ lid_closed() {
 }
 
 holding=0
+docked_closed=0
 while true; do
-  if lid_closed && ! omarchy-hw-external-monitors; then
+  if ! lid_closed; then
+    docked_closed=0
+  elif omarchy-hw-external-monitors; then
+    docked_closed=1
+  fi
+
+  if (( docked_closed )) && ! omarchy-hw-external-monitors; then
     holding=1
     mkdir -p "$(dirname "$flag")"
     if [[ ! -f $flag ]] || [[ $(<"$flag") != "$disable_line" ]]; then
@@ -87,11 +98,16 @@ It writes the same clamshell flag Omarchy uses, so Omarchy's own reloads keep
 the panel off. When the lid opens it runs Omarchy's clamshell script, which
 removes the flag, reloads, and turns the panel on.
 
+It only holds the panel off when the lid was shut while displays were
+connected. Close the lid away from the desk and it leaves the panel alone:
+there the panel is the only screen, and the lock screen needs it before the
+laptop suspends.
+
 Start it from `~/.config/hypr/autostart.lua`:
 
 ```lua
--- Hold the internal panel off while the lid is shut and nothing external
--- is connected, so unplugging the desk does not modeset a powered-down panel.
+-- Hold the internal panel off when the desk displays are unplugged with the
+-- lid shut, so Omarchy does not modeset a powered-down panel.
 o.launch_on_start(os.getenv("HOME") .. "/.config/logind/keep-panel-off-while-closed")
 ```
 
@@ -264,6 +280,10 @@ two scripts in `~/.config/logind/`, then log out and back in to stop the loop.
   - Checking `hyprctl monitors` after the wake to see whether the panel is
     lit. Hyprland reported it enabled while the backlight was off, so the
     hook exited early and the screen stayed black.
+  - Holding the panel off whenever the lid is shut and nothing is connected.
+    That includes an ordinary lid close away from the desk, where the panel is
+    the only screen. The lock screen had nowhere to show before the suspend,
+    and the laptop woke unlocked.
 - A lid resting slightly open on a spacer at the desk does not trip the lid
   switch, so clamshell mode never turns the panel off. A watcher that ran
   `omarchy-hyprland-monitor-internal off` on every `monitoraddedv2` event
@@ -282,7 +302,7 @@ two scripts in `~/.config/logind/`, then log out and back in to stop the loop.
   "id": "duff/laptop-screen-stays-black-after-undocked-sleep",
   "title": "Intel laptop screen stays black after undocking with the lid shut and sleeping",
   "summary": "Keep the panel off while the lid is shut, and turn it back on after the wake.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Laptops with Intel graphics used docked with the lid shut (tested on a Dell XPS 16).",
   "requires": [{"laptop": true}],
