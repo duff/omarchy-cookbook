@@ -52,6 +52,7 @@ tell whether it applies to yours.
 - [Every display's bar shows the same workspace numbers](recipes/every-bar-shows-the-same-workspace-numbers/RECIPE.md): each bar lists only its own screen's workspaces.
 - [Super+Slash made everything bigger, and it stays that way](recipes/super-slash-made-everything-bigger/RECIPE.md): what the shortcut changes and how to undo it.
 - [Hard to see which window is focused](recipes/hard-to-see-which-window-is-focused/RECIPE.md): wider borders.
+- [A lone window fills the whole screen in the scrolling layout](recipes/lone-window-fills-the-screen-in-scrolling-layout/RECIPE.md): keep it a half-width column.
 - [Super+Shift+arrow only swaps windows](recipes/super-shift-arrow-only-swaps-windows/RECIPE.md): move a window into its neighbor's split.
 
 ## Laptop, power, network, and audio
