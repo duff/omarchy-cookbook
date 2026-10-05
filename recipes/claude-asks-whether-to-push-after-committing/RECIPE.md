@@ -21,18 +21,19 @@ Add a line to `~/.claude/CLAUDE.md` (create the file if it does not exist):
 ```markdown
 # Global preferences
 
-- "Commit" and "push" mean the same thing: commit the pending changes and push them. Never leave a commit unpushed, and don't ask whether to push after committing. This holds in every project.
+- When I ask you to commit, that request includes pushing: commit the pending changes, then push them. The same goes when I ask you to push. This holds in every project.
 ```
 
-The rule names both words so "push" alone also commits first, says what not
-to do (leave a commit unpushed, ask), and says it holds everywhere, so a
+The rule defines what your request means, so the push is part of what you
+asked for rather than a second step to check on. It names both words, so
+"push" alone also commits first, and it says it holds everywhere, so a
 project's own `CLAUDE.md` is not read as overriding it.
 
 ## Apply and check
 
 Start a new `claude` session (the file is read at start) in a repo with a
-remote, make a small change, and say "commit". Claude should commit and push
-without asking. Check with:
+remote, make a small change, and say "commit". Claude should commit, then
+push, as one step. Check with:
 
 ```bash
 git status -sb
@@ -67,7 +68,7 @@ created it for this rule. New sessions go back to pushing only when asked.
   "id": "duff/claude-asks-whether-to-push-after-committing",
   "title": "Claude Code commits but doesn't push, or asks whether to push",
   "summary": "Make commit and push one step with a global Claude Code rule.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "claude-code": "2.1.286"},
   "applies_to": "Every machine.",
   "requires": [{"command": "claude"}],
