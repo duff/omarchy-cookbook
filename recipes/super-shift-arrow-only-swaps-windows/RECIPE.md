@@ -24,19 +24,24 @@ groups, but not for plain directions.
 
 ## Fix
 
-Add move bindings on a free chord in `~/.config/hypr/bindings.lua`.
-Super+Ctrl+Shift+arrow is unused in stock:
+Bind the move to Super+Alt+Shift+arrow in `~/.config/hypr/bindings.lua`. Stock
+uses that chord to move the whole workspace to the next monitor, so unbind it
+first and give that action Super+Ctrl+Shift+arrow, which is unused in stock:
 
 ```lua
--- SUPER+SHIFT+arrow only swaps two windows. These move the window next to its
--- neighbor instead, splitting that neighbor's space (dwindle).
-o.bind("SUPER + CTRL + SHIFT + LEFT", "Move window left", hl.dsp.window.move({ direction = "l" }))
-o.bind("SUPER + CTRL + SHIFT + RIGHT", "Move window right", hl.dsp.window.move({ direction = "r" }))
-o.bind("SUPER + CTRL + SHIFT + UP", "Move window up", hl.dsp.window.move({ direction = "u" }))
-o.bind("SUPER + CTRL + SHIFT + DOWN", "Move window down", hl.dsp.window.move({ direction = "d" }))
+-- SUPER+SHIFT+arrow only swaps two windows. SUPER+ALT+SHIFT+arrow moves the
+-- window next to its neighbor instead, splitting that neighbor's space (dwindle).
+-- Stock SUPER+ALT+SHIFT+arrow moves the workspace to another monitor; that's
+-- SUPER+CTRL+SHIFT+arrow here.
+for _, dir in ipairs({ { "LEFT", "l", "left" }, { "RIGHT", "r", "right" }, { "UP", "u", "up" }, { "DOWN", "d", "down" } }) do
+  hl.unbind("SUPER + SHIFT + ALT + " .. dir[1])
+  o.bind("SUPER + ALT + SHIFT + " .. dir[1], "Move window " .. dir[3], hl.dsp.window.move({ direction = dir[2] }))
+  o.bind("SUPER + CTRL + SHIFT + " .. dir[1], "Move workspace to " .. dir[3] .. " monitor", hl.dsp.workspace.move({ monitor = dir[2] }))
+end
 ```
 
-No `hl.unbind` is needed because these keys have no stock binding.
+If you'd rather keep stock's workspace keys, skip the `hl.unbind` and the
+workspace line, and put the window move on Super+Ctrl+Shift+arrow instead.
 
 ## Apply and check
 
@@ -46,13 +51,14 @@ hyprctl configerrors
 ```
 
 Open three windows on one workspace. Focus the big one and press
-Super+Ctrl+Shift+Right: it should leave its half and share the space of the
-window on its right, instead of trading places with it.
+Super+Alt+Shift+Right: it should leave its half and share the space of the
+window on its right, instead of trading places with it. With two monitors,
+Super+Ctrl+Shift+Right should send the whole workspace to the right-hand one.
 
 ## Undo
 
-Delete the four bindings from `~/.config/hypr/bindings.lua`, then run
-`hyprctl reload`.
+Delete the loop from `~/.config/hypr/bindings.lua`, then run `hyprctl reload`.
+Stock's Super+Alt+Shift+arrow workspace move comes back with it.
 
 ## Notes
 
@@ -62,6 +68,8 @@ Delete the four bindings from `~/.config/hypr/bindings.lua`, then run
 - Super+Shift+arrow still swaps, so you keep both behaviors.
 - The comment says dwindle because that is where the split behavior shows. In
   the scrolling layout the move follows that layout's own rules.
+- Version 1 put the window move on Super+Ctrl+Shift+arrow and left stock's
+  workspace keys alone.
 
 ## History
 
@@ -73,8 +81,8 @@ Delete the four bindings from `~/.config/hypr/bindings.lua`, then run
 {
   "id": "duff/super-shift-arrow-only-swaps-windows",
   "title": "Super+Shift+arrow only swaps windows, can't move one into another's space",
-  "summary": "Bind Super+Ctrl+Shift+arrow to move a window into its neighbor's split.",
-  "version": 1,
+  "summary": "Bind Super+Alt+Shift+arrow to move a window into its neighbor's split, and move stock's workspace-to-monitor keys to Super+Ctrl+Shift+arrow.",
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Every machine using the dwindle layout (Omarchy's default).",
   "requires": [],
