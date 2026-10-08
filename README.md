@@ -16,7 +16,7 @@ tell whether it applies to yours.
 - [A light palm tap on the touchpad clicks things](recipes/touchpad-palm-tap-clicks-things/RECIPE.md): turn off tap-to-click.
 - [High-DPI gaming mouse moves the cursor too fast to place it precisely](recipes/gaming-mouse-cursor-too-fast/RECIPE.md): a per-device acceleration curve, precise when slow and far on a flick.
 - [MacBook T2 trackpad moves the cursor while typing](recipes/macbook-t2-trackpad-moves-cursor-while-typing/RECIPE.md): mark the pad internal, plus a small daemon that pauses it after each key.
-- [Make Caps Lock Escape on tap and hjkl arrows on hold](recipes/caps-lock-as-escape-and-hjkl-arrows/RECIPE.md): with keyd.
+- [Make Caps Lock Escape on tap and hjkl arrows on hold](recipes/caps-lock-as-escape-and-hjkl-arrows/RECIPE.md): with keyd, plus Backspace as Delete.
 - [Swap Alt and Super on the laptop keyboard only](recipes/swap-alt-and-super-on-laptop-keyboard-only/RECIPE.md): per-device keyd config that leaves an external keyboard alone.
 - [Super+J shows a Lua error on a scrolling-layout workspace](recipes/super-j-error-on-scrolling-layout/RECIPE.md): only toggle the split on dwindle.
 - [No volume keys on the keyboard](recipes/no-volume-keys-on-the-keyboard/RECIPE.md): Super+] and Super+[ turn the volume up and down.

@@ -4,7 +4,8 @@
 
 Omarchy turns Caps Lock into the Compose key. If you live in Vim, you would
 rather have Escape under that finger, and arrow keys you can reach without
-leaving the home row. Hyprland binds like `SUPER + H/J/K/L` are already taken
+leaving the home row. Compact keyboards and many laptops also have no Delete
+key, or one that's hard to reach. Hyprland binds like `SUPER + H/J/K/L` are already taken
 by window management, so the arrows need a different modifier.
 
 ## Why it happens
@@ -28,6 +29,7 @@ Write `/etc/keyd/default.conf`:
 
 ```ini
 # Caps tap = Escape. Caps hold + h/j/k/l = real arrow keys.
+# Caps hold + Backspace = Delete.
 
 [ids]
 *
@@ -40,10 +42,12 @@ h = left
 j = down
 k = up
 l = right
+backspace = delete
 ```
 
 `overload(nav, esc)` sends Escape on a tap and turns on the `nav` layer while
-held. The layer sends real arrow keycodes, so they work in every app.
+held. The layer sends real arrow and Delete keycodes, so they work in every app.
+Leave out the `backspace` line if you only want the arrows.
 
 Then move Compose off Caps in `~/.config/hypr/input.lua`, since keyd now owns
 that key and XKB never sees it:
@@ -71,7 +75,8 @@ hyprctl configerrors
 ```
 
 Tap Caps in a terminal running `cat -v` or in Vim's insert mode to see Escape.
-Hold Caps and press `h`/`l` in a text field to move the cursor.
+Hold Caps and press `h`/`l` in a text field to move the cursor, then hold
+Caps and press Backspace to delete the character after it.
 `sudo keyd monitor` shows what keyd emits.
 
 ## Undo
@@ -85,7 +90,7 @@ keyd, remove it with `omarchy pkg drop keyd`.
 
 - `compose:ralt` takes away Right Alt as an Alt key. If you use it in chords,
   have keyd send Compose on tap and Alt on hold instead:
-  `rightalt = overload(alt, compose)` in `[main]`, and
+  `rightalt = overloadt(alt, compose, 200)` in `[main]`, and
   `kb_options = "compose:menu,shift:both_capslock_cancel"` in Hyprland, since
   keyd's `compose` key arrives as the Menu key.
 - keyd's virtual keyboard is not an internal keyboard as far as libinput is
@@ -106,8 +111,8 @@ keyd, remove it with `omarchy pkg drop keyd`.
 {
   "id": "duff/caps-lock-as-escape-and-hjkl-arrows",
   "title": "Make Caps Lock Escape on tap and hjkl arrows on hold",
-  "summary": "Use keyd to make Caps Lock Escape on tap and a hjkl arrow layer on hold.",
-  "version": 1,
+  "summary": "Use keyd to make Caps Lock Escape on tap and a hjkl arrow layer on hold, with Backspace as Delete.",
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2", "keyd": "2.6.0"},
   "applies_to": "Every machine.",
   "requires": [],
