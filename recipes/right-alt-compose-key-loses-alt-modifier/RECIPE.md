@@ -46,12 +46,21 @@ keyd reads its config from `/etc/keyd/`. In `/etc/keyd/default.conf`:
 *
 
 [main]
-# Tap = Compose. Hold = Alt.
-rightalt = overload(alt, compose)
+# Tap = Compose. Held 200 ms or more = Alt.
+rightalt = overloadt(alt, compose, 200)
 ```
 
-`overload(alt, compose)` acts as the Alt modifier while the key is held with
-another key, and sends `compose` when it is tapped alone.
+`overloadt(alt, compose, 200)` sends `compose` when the key is tapped, and acts
+as the Alt modifier once it has been held for 200 ms. A key pressed before
+then waits for keyd's decision.
+
+The timing matters because Compose sequences are typed fast. With plain
+`overload(alt, compose)`, keyd decides by whether another key goes down while
+Right Alt is held. A quick roll, where you press the first letter of the
+sequence a moment before Right Alt comes back up, turns into Alt+letter and
+the sequence never starts. With `overloadt`, that roll is still Compose,
+because Right Alt came back up within 200 ms. Raise the number if your rolls
+still come out as Alt, or lower it if Alt chords feel sluggish.
 
 Then tell XKB that the Menu key is Compose, and drop `compose:ralt` if you had
 it. In `~/.config/hypr/input.lua`:
@@ -103,6 +112,8 @@ omarchy pkg drop keyd
 
 ## Notes
 
+- Version 1 used `overload(alt, compose)`, which reads a fast Compose roll as
+  Alt.
 - `[ids] *` applies the mapping to every keyboard, including external ones.
   To leave one keyboard alone, list it with a minus (`-vendor:product`, from
   `keyd monitor`) and give it its own file.
@@ -127,8 +138,8 @@ omarchy pkg drop keyd
 {
   "id": "duff/right-alt-compose-key-loses-alt-modifier",
   "title": "Putting Compose on Right Alt breaks Right Alt as a modifier",
-  "summary": "Make Right Alt Compose on tap and Alt on hold, with keyd.",
-  "version": 1,
+  "summary": "Make Right Alt Compose on tap and Alt when held 200 ms, with keyd.",
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Machines that move Compose from Caps Lock to Right Alt.",
   "requires": [],
