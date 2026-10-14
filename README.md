@@ -50,7 +50,7 @@ tell whether it applies to yours.
 - [HiDPI screens are left on auto scale instead of a fixed 2x](recipes/hidpi-screens-left-on-auto-scale/RECIPE.md): pin the scale.
 - [Monitors swap left and right when the cables change ports](recipes/monitors-swap-sides-when-cables-change-ports/RECIPE.md): pin each screen by make, model, and serial.
 - [Workspaces open on unpredictable monitors](recipes/workspaces-open-on-the-wrong-monitor/RECIPE.md): give each monitor its own block of workspace numbers.
-- [Every display's bar shows the same workspace numbers](recipes/every-bar-shows-the-same-workspace-numbers/RECIPE.md): each bar lists only its own screen's workspaces.
+- [Every display's bar shows the same workspace numbers](recipes/every-bar-shows-the-same-workspace-numbers/RECIPE.md): each bar lists only its own screen's workspaces, and a lone laptop screen shows them all.
 - [Super+Slash made everything bigger, and it stays that way](recipes/super-slash-made-everything-bigger/RECIPE.md): what the shortcut changes and how to undo it.
 - [Hard to see which window is focused](recipes/hard-to-see-which-window-is-focused/RECIPE.md): wider borders.
 - [Windows are slightly see-through](recipes/windows-are-slightly-see-through/RECIPE.md): make every window fully opaque.

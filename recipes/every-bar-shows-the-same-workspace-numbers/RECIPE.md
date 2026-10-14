@@ -34,6 +34,17 @@ screen is showing gets a square marker: filled on the focused screen, outlined
 on the others. Empty workspaces are dimmed. A screen with no rules, or a
 machine with none at all, gets the stock list.
 
+Two cases come up when screens are unplugged:
+
+- **A laptop on its own.** Away from the desk, only the laptop screen is
+  connected, and Hyprland moves every workspace onto it. Its bar would still
+  list only the laptop's own block, so with one screen the widget shows the
+  stock list instead.
+- **A workspace stranded on another screen.** When one external screen is
+  unplugged, its workspaces move to a screen that's still connected. They
+  aren't pinned there, so the bar would hide them. Each bar also lists any
+  workspace that is on its screen right now, wherever it's pinned.
+
 ```qml
 import QtQuick
 import QtQuick.Layouts
@@ -43,11 +54,13 @@ import Quickshell.Io
 import qs.Commons
 import qs.Ui
 
-// Each display's bar lists only the workspaces Hyprland's workspace rules pin
-// to that display (~/.config/hypr/monitors.lua), and marks the one it is
-// showing: filled on the focused display, outlined on the others. A display
-// with no pinned workspaces (or a machine with no rules) falls back to the
-// stock list: 1-5 plus any other workspace up to 10 that exists.
+// Each display's bar lists the workspaces Hyprland's workspace rules pin to
+// that display (~/.config/hypr/monitors.lua), plus any workspace it holds
+// because the display it belongs on isn't connected, and marks the one it is
+// showing: filled on the focused display, outlined on the others. A lone
+// display (a laptop away from its desk), a display with no pinned
+// workspaces, or a machine with no rules gets the stock list instead: 1-5 plus
+// any other workspace up to 10 that exists.
 BarWidget {
   id: root
   moduleName: "yourname.workspaces"
@@ -98,9 +111,28 @@ BarWidget {
     return ids
   }
 
+  // Workspaces on this bar's display right now, wherever they're pinned.
+  function hereIds() {
+    var ids = []
+    var values = Hyprland.workspaces.values
+
+    for (var i = 0; i < values.length; i++) {
+      var workspace = values[i]
+      if (workspace.id > 0 && workspace.monitor && root.monitor && workspace.monitor.name === root.monitor.name)
+        ids.push(workspace.id)
+    }
+
+    return ids
+  }
+
   function workspaceIds() {
-    var ids = root.pinnedIds()
+    var ids = Hyprland.monitors.values.length > 1 ? root.pinnedIds() : []
     if (ids.length === 0) ids = root.stockIds()
+
+    var here = root.hereIds()
+    for (var i = 0; i < here.length; i++) {
+      if (ids.indexOf(here[i]) === -1) ids.push(here[i])
+    }
     ids.sort(function(left, right) { return left - right })
     return ids
   }
@@ -241,7 +273,7 @@ Re-enable the stock widget in place of the clone with
   "id": "duff/every-bar-shows-the-same-workspace-numbers",
   "title": "Every display's bar shows the same workspace numbers",
   "summary": "Clone the workspaces widget so each bar lists only its own screen's workspaces.",
-  "version": 1,
+  "version": 2,
   "tested_on": {"omarchy": "4.0.4", "hyprland": "0.56.2"},
   "applies_to": "Multi-monitor setups that pin workspaces to screens.",
   "requires": [{"monitors": 2}],
