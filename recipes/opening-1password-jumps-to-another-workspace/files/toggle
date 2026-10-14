@@ -1,0 +1,45 @@
+#!/bin/bash
+# Super+Shift+/: show or hide 1Password in its own hidden workspace
+# (special:1password), over whichever screen has focus, with the cursor in its
+# search box. Opens 1Password the first time. Only the main window moves there;
+# its SSH-approval and unlock prompts are smaller windows and stay where they
+# open.
+set -euo pipefail
+
+name=1password
+class='^(1[pP]assword|com\.onepassword\.OnePassword)$'
+
+main_window() {
+  hyprctl clients -j | jq -r --arg c "$class" '
+    [.[] | select(.class | test($c))] | max_by(.size[0] * .size[1]) | .address // empty'
+}
+
+shown_here() {
+  hyprctl monitors -j | jq -e --arg ws "special:$name" '
+    any(.[]; .focused and .specialWorkspace.name == $ws)' >/dev/null
+}
+
+if shown_here; then
+  hyprctl dispatch "hl.dsp.workspace.toggle_special(\"$name\")" >/dev/null
+  exit 0
+fi
+
+address=$(main_window)
+if [[ -z $address ]]; then
+  omarchy-launch-1password >/dev/null 2>&1 &
+  for _ in $(seq 50); do
+    sleep 0.1
+    address=$(main_window)
+    [[ -n $address ]] && break
+  done
+  [[ -n $address ]] || exit 0
+fi
+
+hyprctl dispatch "hl.dsp.window.move({ window = \"address:$address\", workspace = \"special:$name\", follow = false })" >/dev/null
+hyprctl dispatch "hl.dsp.workspace.toggle_special(\"$name\")" >/dev/null
+hyprctl dispatch "hl.dsp.focus({ window = \"address:$address\" })" >/dev/null
+
+# Put the cursor in 1Password's search box (Ctrl+F), since showing it is
+# almost always to look something up.
+sleep 0.15
+hyprctl dispatch "hl.dsp.send_shortcut({ mods = \"CTRL\", key = \"f\", window = \"address:$address\" })" >/dev/null

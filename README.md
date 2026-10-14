@@ -41,6 +41,7 @@ tell whether it applies to yours.
 - [No shortcut to open a typed or pasted URL](recipes/no-shortcut-to-open-a-typed-or-pasted-url/RECIPE.md): Super+U opens an address or searches the web.
 - [Desktop shortcuts appear in the home folder](recipes/desktop-shortcuts-appear-in-home-folder/RECIPE.md): give them a real `~/Desktop`.
 - [1Password locks every time the screen locks](recipes/1password-locks-every-time-the-screen-locks/RECIPE.md): skip Omarchy's lock call so 1Password's own settings decide.
+- [Opening 1Password jumps to another workspace, or takes up a tile](recipes/opening-1password-jumps-to-another-workspace/RECIPE.md): show and hide it over the current screen, ready to search.
 - [Chrome shows a privacy warning on a local Caddy HTTPS site](recipes/chrome-privacy-warning-on-local-caddy-https-site/RECIPE.md): add Caddy's root certificate to Chrome's own store.
 - [Wine app is tiny, blurry, or draws hair-thin lines on a HiDPI screen](recipes/wine-app-blurry-or-thin-lines-on-hidpi/RECIPE.md): draw at 96 DPI and let Hyprland double it.
 - [Wine app quits on Super+W, or pops back up after hiding it](recipes/wine-app-quits-on-super-w-or-pops-back-up-when-hidden/RECIPE.md): show and hide an all-day app with one key.
