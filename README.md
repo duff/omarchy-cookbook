@@ -112,6 +112,7 @@ tell whether it applies to yours.
 
 - [My Omarchy customizations don't follow me to my other machines](recipes/customizations-do-not-follow-to-other-machines/RECIPE.md): a git overlay with a shared layer and a per-machine layer.
 - [SSH key has to be created or copied onto every machine](recipes/ssh-key-has-to-be-copied-to-every-machine/RECIPE.md): use the 1Password SSH agent.
+- [1Password asks to approve every SSH connection to my own machines](recipes/1password-asks-to-approve-every-ssh-connection/RECIPE.md): a key on disk for your own machines, 1Password for the rest.
 
 ## Following this cookbook
 
