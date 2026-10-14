@@ -65,6 +65,7 @@ tell whether it applies to yours.
 - [Screensaver starts too soon while reading](recipes/screensaver-starts-too-soon/RECIPE.md): longer idle timers.
 - [Wrong default microphone records silence when docked](recipes/wrong-default-microphone-records-silence/RECIPE.md): WirePlumber priorities.
 - [ErgoDox EZ cannot be flashed or trained from Oryx](recipes/ergodox-ez-cannot-be-flashed-from-oryx/RECIPE.md): udev rules and the plugdev group.
+- [MacBook T2: a USB-C device plugged in after boot never shows up](recipes/macbook-t2-usb-c-device-plugged-in-after-boot-does-not-show-up/RECIPE.md): keep the Thunderbolt controller awake.
 
 ## Bar, notifications, menus, and terminals
 
