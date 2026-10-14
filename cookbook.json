@@ -3,6 +3,7 @@
   "kitchen": "v0.3.0",
   "description": "Duff's Omarchy customizations, one problem per recipe.",
   "allow": [
-    "Duff"
+    "Duff",
+    "ac:de:48:00:11:22"
   ]
 }
