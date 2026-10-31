@@ -17,11 +17,12 @@ Omarchy binds Super+Shift+/ to `omarchy-launch-1password`
 Omarchy also has a rule to make 1Password a centered float that is hidden
 from screen sharing (`/usr/share/omarchy/default/hypr/apps/1password.lua`).
 It matches the window class `1Password`, but recent 1Password builds (8.12.36
-here) use `com.onepassword.OnePassword`, so on Omarchy 4.0.4 the rule misses:
-1Password tiles, and shows up in screen shares. This is
-[omacom/omarchy#12288](https://github.com/omacom/omarchy/issues/12288), fixed
-by [omacom/omarchy#11704](https://github.com/omacom/omarchy/pull/11704) after
-4.0.4.
+here) use `com.onepassword.OnePassword`, so the rule misses: 1Password tiles,
+and shows up in screen shares. This is
+[omacom/omarchy#12288](https://github.com/omacom/omarchy/issues/12288). The
+fix, [omacom/omarchy#11704](https://github.com/omacom/omarchy/pull/11704), is
+merged on Omarchy's quattro branch but isn't in a release yet: Omarchy
+4.0.5 still has the old rule.
 
 ## Fix
 
