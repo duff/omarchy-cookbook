@@ -1,0 +1,6 @@
+[Unit]
+Description=Switch to the home Wi-Fi when it's in range
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/prefer-home-wifi

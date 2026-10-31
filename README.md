@@ -70,6 +70,7 @@ tell whether it applies to yours.
 - [ErgoDox EZ cannot be flashed or trained from Oryx](recipes/ergodox-ez-cannot-be-flashed-from-oryx/RECIPE.md): udev rules and the plugdev group.
 - [MacBook T2: a USB-C device plugged in after boot never shows up](recipes/macbook-t2-usb-c-device-plugged-in-after-boot-does-not-show-up/RECIPE.md): keep the Thunderbolt controller awake.
 - [MacBook T2: NetworkManager keeps retrying an internal network link](recipes/macbook-t2-networkmanager-keeps-retrying-an-internal-link/RECIPE.md): leave the T2's link unmanaged.
+- [Laptop stays on the phone's hotspot after getting home](recipes/laptop-stays-on-the-phone-hotspot-after-getting-home/RECIPE.md): give home Wi-Fi first priority, and switch back to it once it's in range.
 
 ## Bar, notifications, menus, and terminals
 

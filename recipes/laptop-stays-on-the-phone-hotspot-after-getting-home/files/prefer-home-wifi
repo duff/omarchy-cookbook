@@ -1,0 +1,30 @@
+#!/bin/bash
+# Leave another Wi-Fi network, such as a phone's hotspot, for the home network
+# once it's in range. NetworkManager never drops a working network for a
+# better one by itself. Run every two minutes by prefer-home-wifi.timer.
+set -euo pipefail
+
+# The saved connection's name, from `nmcli connection show`. NetworkManager
+# names a new connection after its network, so this is usually the SSID.
+home=HOME_SSID
+# Lowest signal worth switching for, out of 100.
+min_signal=30
+# Set to 5 to count only 5 GHz access points, if the connection is pinned to
+# 5 GHz (wifi.band a). Leave it empty to count every band.
+band=
+
+current=$(nmcli -t -f TYPE,NAME connection show --active | sed -n 's/^802-11-wireless://p' | head -1)
+[[ -n $current && $current != "$home" ]] || exit 0
+
+# This rescans, since NetworkManager barely scans while the current signal is
+# good.
+best=$(nmcli -t -f SSID,FREQ,SIGNAL device wifi list --rescan auto |
+  awk -F: -v ssid="$home" -v band="$band" '
+    $1 == ssid && (band == "" || $2 ~ ("^" band "[0-9]{3} ")) && $3 > best { best = $3 }
+    END { print best + 0 }') ||
+  exit 0
+
+if (( best >= min_signal )); then
+  echo "$home is in range (signal $best); leaving $current for it."
+  nmcli connection up "$home"
+fi
