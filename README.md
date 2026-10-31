@@ -113,6 +113,7 @@ tell whether it applies to yours.
 
 - [`mise upgrade` skips a release that just shipped](recipes/mise-upgrade-skips-a-release-that-just-shipped/RECIPE.md): turn off the release cooldown and track the mise config.
 - [`git push` over HTTPS fails after syncing the git config](recipes/git-push-over-https-fails-after-syncing-git-config/RECIPE.md): keep gh as the credential helper.
+- [Neovim's autocomplete gets in the way when writing prose](recipes/neovim-autocomplete-gets-in-the-way-of-prose/RECIPE.md): no pop-up menu in text, and no gray preview.
 
 ## Keeping a setup across machines
 
