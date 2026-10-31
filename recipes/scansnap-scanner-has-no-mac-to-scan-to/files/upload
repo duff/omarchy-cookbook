@@ -1,0 +1,119 @@
+#!/bin/bash
+# Run by scan-upload.service, as soon as something lands in ~/Scans
+# (scan-upload.path) and every few minutes as a backstop (scan-upload.timer).
+# Gives each new scan the day it was scanned and a number for that day
+# (2026-10-17.001.pdf, .002, ...), makes it searchable, then moves it to
+# Dropbox.
+#
+# The iX1600 writes image-only PDFs to a network folder, and ocrmypdf isn't in
+# Arch's repos, so this does its job with tools Omarchy already has: tesseract
+# reads each page and writes an invisible text layer, and qpdf lays that under
+# the scanner's own page, which stays as it was. If any of that fails, the
+# scan goes up without text rather than waiting here.
+set -euo pipefail
+
+# The rclone remote and Dropbox folder scans go to.
+remote=dropbox:ScanSnap
+
+inbox=$HOME/Scans
+state=${XDG_STATE_HOME:-$HOME/.local/state}/scansnap
+outbox=$state/outbox
+counters=$state/counters
+mkdir -p "$outbox" "$counters"
+# A half-written copy left by a run that was cut off. Its scan is still in
+# ~/Scans, so this run starts it again.
+rm -f "$outbox"/.*.pdf
+find "$counters" -type f -mtime +60 -delete
+
+# Called from an if, where set -e is off, so each step's failure is tracked.
+add_text() {
+  local src=$1 dest=$2 work png ok=true
+  work=$(mktemp -d)
+  pdftoppm -r 300 -gray -png "$src" "$work/page" || ok=false
+  if $ok; then
+    for png in "$work"/page-*.png; do
+      tesseract "$png" "${png%.png}" --dpi 300 -l eng -c textonly_pdf=1 pdf 2>/dev/null || { ok=false; break; }
+    done
+  fi
+  $ok && qpdf --warning-exit-0 --empty --pages "$work"/page-*.pdf -- "$work/text.pdf" || ok=false
+  $ok && qpdf --warning-exit-0 "$src" --underlay "$work/text.pdf" -- "$dest" || ok=false
+  rm -rf "$work"
+  $ok
+}
+
+# The day's next number: one past the highest this machine has given, any
+# still waiting in the outbox, and any already in Dropbox, so a scan renamed
+# there doesn't free its number for reuse.
+next_number() {
+  local day=$1 n=0 used
+  [[ -f $counters/$day ]] && n=$(<"$counters/$day")
+  for used in $({ ls "$outbox"; rclone lsf "$remote" --files-only --include "$day.*" 2>/dev/null || true; } |
+    sed -n "s/^$day\.\([0-9]\{3,\}\)\..*/\1/p"); do
+    if (( 10#$used > n )); then n=$((10#$used)); fi
+  done
+  echo $((n + 1))
+}
+
+# Whether the scanner has finished writing a scan: unchanged for 3 seconds
+# and, for a PDF, whole. qpdf only "recovers" a half-written one (exit 3), so
+# only a clean check counts. One that never checks clean goes up after a
+# minute rather than waiting for ever.
+finished() {
+  local age=$(( $(date +%s) - $(stat -c %Y "$1") ))
+  (( age >= 60 )) && return 0
+  (( age >= 3 )) || return 1
+  [[ ${1,,} != *.pdf ]] && return 0
+  qpdf --check "$1" >/dev/null 2>&1
+}
+
+# Numbers each finished scan, adds its text, and puts it in the outbox. Oldest
+# first, so the day's numbers follow the order of scanning.
+queue_finished() {
+  local scan name ext day n new
+  while IFS= read -r -d '' scan; do
+    finished "$scan" || continue
+    name=${scan##*/}
+    ext=pdf
+    [[ $name == *.* ]] && ext=${name##*.} && ext=${ext,,}
+    # The scanner names a scan by month, day, year and time: 10172026091741.pdf.
+    if [[ $name =~ ^([0-9]{2})([0-9]{2})([0-9]{4})[0-9]{6} ]]; then
+      day=${BASH_REMATCH[3]}-${BASH_REMATCH[1]}-${BASH_REMATCH[2]}
+    else
+      day=$(date -r "$scan" +%F)
+    fi
+    n=$(next_number "$day")
+    new=$(printf '%s.%03d.%s' "$day" "$n" "$ext")
+
+    if [[ $ext == pdf && -z $(pdftotext "$scan" - 2>/dev/null | tr -d '[:space:]') ]]; then
+      if add_text "$scan" "$outbox/.$new"; then
+        mv "$outbox/.$new" "$outbox/$new"
+        rm "$scan"
+      else
+        echo "Couldn't add text to $name; uploading it as scanned" >&2
+        rm -f "$outbox/.$new"
+        mv "$scan" "$outbox/$new"
+      fi
+    else
+      mv "$scan" "$outbox/$new"
+    fi
+    echo "$n" >"$counters/$day"
+  done < <(find "$inbox" -maxdepth 1 -type f ! -name '.*' -printf '%T@ %p\0' | sort -zn | cut -zd' ' -f2-)
+}
+
+waiting() { [[ -n $(find "$1" -maxdepth 1 -type f ! -name '.*' -print -quit) ]]; }
+
+# The path unit fires when a scan is first created, before it's written, and
+# not again for one that lands while this runs. So keep going until ~/Scans is
+# empty, giving up after five minutes; the timer picks up anything left.
+deadline=$(( $(date +%s) + 300 ))
+while :; do
+  queue_finished
+  # --ignore-existing never replaces a file already in Dropbox; a clash stays
+  # in the outbox to look at.
+  if waiting "$outbox"; then
+    rclone move "$outbox" "$remote" --ignore-existing --exclude ".*" ||
+      echo "Upload failed; the timer will try again" >&2
+  fi
+  waiting "$inbox" && (( $(date +%s) < deadline )) || break
+  sleep 1
+done

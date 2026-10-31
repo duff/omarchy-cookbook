@@ -1,0 +1,27 @@
+#!/bin/bash
+# Clicked from a "New scan" notification (see ./arrived): asks for a name and
+# renames the scan in your Dropbox scans folder. Escape or an empty name
+# leaves it as it is.
+set -euo pipefail
+
+pdf=$1
+scan=${2:-${pdf##*/}}
+dir=${pdf%/*}
+
+if [[ ! -f $pdf ]]; then
+  omarchy-notification-send "Scan already named" "${pdf##*/} isn't in ScanSnap any more."
+  exit 0
+fi
+
+prompt="Name for $scan"
+while name=$(omarchy-menu-input "$prompt" --width 600); do
+  name=$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/\.pdf$//I' -e 's|/|-|g' <<<"$name")
+  [[ -n $name ]] || exit 0
+  if [[ -e $dir/$name.pdf ]]; then
+    prompt="$name.pdf already exists. Another name for $scan"
+    continue
+  fi
+  mv -n "$pdf" "$dir/$name.pdf"
+  omarchy-notification-send "Scan named" "$name.pdf"
+  exit 0
+done

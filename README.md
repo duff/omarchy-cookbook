@@ -46,6 +46,7 @@ tell whether it applies to yours.
 - [Chrome shows a privacy warning on a local Caddy HTTPS site](recipes/chrome-privacy-warning-on-local-caddy-https-site/RECIPE.md): add Caddy's root certificate to Chrome's own store.
 - [Wine app is tiny, blurry, or draws hair-thin lines on a HiDPI screen](recipes/wine-app-blurry-or-thin-lines-on-hidpi/RECIPE.md): draw at 96 DPI and let Hyprland double it.
 - [Wine app quits on Super+W, or pops back up after hiding it](recipes/wine-app-quits-on-super-w-or-pops-back-up-when-hidden/RECIPE.md): show and hide an all-day app with one key.
+- [ScanSnap scanner has no Mac or PC to scan to](recipes/scansnap-scanner-has-no-mac-to-scan-to/RECIPE.md): scan to an always-on Linux machine, make each PDF searchable, and upload it to Dropbox.
 
 ## Displays and workspaces
 
