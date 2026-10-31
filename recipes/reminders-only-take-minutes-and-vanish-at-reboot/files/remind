@@ -1,0 +1,633 @@
+#!/usr/bin/env python3
+# Reminders that understand clock times and survive a reboot.
+#
+#   remind 4pm call Bob             at a time: 12:15pm, 4 p.m., noon, 16:00,
+#                                   at 4 (whichever 4 o'clock comes next)
+#   remind 3h check laundry         after a while: 20 (minutes), 90m, 1h30m,
+#                                   in 2 hours, half an hour
+#   remind tomorrow 9am pay rent    on a day: tomorrow, fri, oct 30, 10/30,
+#                                   tomorrow morning, tonight
+#   remind call Bob at 4pm          the time can also come last
+#   remind show [--json]            what's waiting, and how long until each
+#   remind cancel <unit>            drop one (the unit from show --json)
+#   remind clear                    drop them all
+#
+# The Super+Ctrl+R box (a clone of omarchy.reminders) runs `remind parse -- <text>`
+# to preview what a text would set. Hyprland runs `remind restore` at login.
+#
+# Each reminder is a systemd timer named like Omarchy's own
+# (omarchy-reminder-<minutes>m-<id>), so the bar icon, `omarchy reminder show`,
+# and the drop-in that keeps the toast on screen all work with it. The timer is
+# set for the clock time rather than counting down, so it isn't late after the
+# laptop sleeps; a reminder due during sleep goes off on waking.
+#
+# A file per reminder in ~/.local/state/remind brings it back after a reboot;
+# one that came due while the machine was off goes off a minute after login.
+# `omarchy reminder clear` stops the timers but can't see those files, so the
+# first `remind` run after it drops the files of timers that were stopped.
+import datetime as dt
+import json
+import math
+import os
+import re
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+SELF = os.path.realpath(__file__)
+STATE = Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state") / "remind"
+RUNTIME = Path(os.environ.get("XDG_RUNTIME_DIR") or "/tmp")
+# Omarchy's reminder keeps each message here, for `omarchy reminder show`.
+MESSAGES = RUNTIME / "omarchy-reminders"
+# Present once this login's reminders have been brought back. /run/user is
+# emptied at logout, along with the timers.
+RESTORED = RUNTIME / "remind-restored"
+PREFIX = "omarchy-reminder-"
+GLYPH = "󰢌"
+HINT = "Can't tell when. Try 4pm, 12:15, 20m, 3h, tomorrow 9am"
+
+# ---------------------------------------------------------------- reading times
+
+NUMBERS = {
+    "a": 1, "an": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+    "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11,
+    "twelve": 12, "fifteen": 15, "twenty": 20, "thirty": 30,
+    "forty-five": 45, "forty five": 45, "forty": 40, "fifty": 50, "sixty": 60,
+    "ninety": 90,
+}
+NUMBER_WORDS = re.compile(r"\b(" + "|".join(NUMBERS) + r")\b")
+UNITS = {
+    "m": 60, "min": 60, "mins": 60, "minute": 60, "minutes": 60,
+    "h": 3600, "hr": 3600, "hrs": 3600, "hour": 3600, "hours": 3600,
+    "d": 86400, "day": 86400, "days": 86400,
+    "w": 604800, "wk": 604800, "week": 604800, "weeks": 604800,
+}
+DURATION_PART = re.compile(r"\s*(?:and\s+|,\s*)?(?:(\d+(?:\.\d+)?)\s*([a-z]+)|(half)\b)")
+WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+MONTHS = ["january", "february", "march", "april", "may", "june", "july",
+          "august", "september", "october", "november", "december"]
+# Times of day, for "tomorrow morning" or "4 in the afternoon".
+PARTS = {"morning": 9, "afternoon": 14, "evening": 18, "night": 20}
+FILLER = {"at", "on", "this", "next", "the", "o'clock", "oclock"}
+# Dictation writes 1:12 p.m. as "1.12 p.m.".
+CLOCK = re.compile(r"(\d{1,2})(?:[:.](\d{2}))?(am|pm|a|p)?")
+# Spoken clock times: "four o'clock", "at four", "a quarter past four",
+# "ten to five".
+HOURS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+         "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
+MINUTES = {"quarter": 15, "half": 30,
+           **{word: n for word, n in NUMBERS.items() if n < 60 and word not in ("a", "an")}}
+PAST = {"past": 1, "after": 1, "to": -1, "till": -1, "before": -1}
+
+
+class Past(Exception):
+    pass
+
+
+def normal(word):
+    word = word.lower().replace("a.m.", "am").replace("p.m.", "pm")
+    return word.replace("a.m", "am").replace("p.m", "pm").strip(",.;:!?")
+
+
+def named(word, names):
+    """The index of the day or month a word names: "fri", "sept", "thurs"."""
+    if word == "weds":
+        word = "wed"
+    for i, name in enumerate(names):
+        if len(word) >= 3 and name.startswith(word):
+            return i
+    return None
+
+
+def duration(words):
+    """Seconds for "20", "90m", "1h30m", "in 2 hours", "an hour and a half"."""
+    if words and words[0] == "in":
+        words = words[1:]
+    text = " ".join(words)
+    if re.fullmatch(r"\d+", text):
+        return int(text) * 60
+    text = re.sub(r"\b(?:half an? hour|a half hour|half hour)\b", "30 minutes", text)
+    text = re.sub(r"\band a half\b", "and half", text)
+    text = NUMBER_WORDS.sub(lambda m: str(NUMBERS[m.group(1)]), text)
+    # "1 and a half hours"; "an hour and a half" is the half below.
+    text = re.sub(r"\b(\d+) and half ([a-z]+)", r"\1.5 \2", text)
+    seconds, unit, pos = 0, None, 0
+    while pos < len(text):
+        m = DURATION_PART.match(text, pos)
+        if not m or m.end() == pos:
+            return None
+        if m.group(3):
+            if unit is None:
+                return None
+            seconds += unit / 2
+        else:
+            unit = UNITS.get(m.group(2))
+            if unit is None:
+                return None
+            seconds += float(m.group(1)) * unit
+        pos = m.end()
+    return round(seconds) if 0 < seconds < 366 * 86400 else None
+
+
+def written(words):
+    """Spoken clock times as written ones: "four o'clock" as 4 o'clock,
+    "a quarter past 4" as 4:15, "ten to five" as 4:50, and "1 12 pm" as
+    1:12 pm. An hour word counts only next to at, past, to, am, pm or
+    o'clock, so "one thing" stays words."""
+    words = [str(HOURS[word]) if word in HOURS and (
+                 (i and words[i - 1] in ("at", *PAST)) or
+                 words[i + 1:i + 2] in (["am"], ["pm"], ["o'clock"], ["oclock"]))
+             else word
+             for i, word in enumerate(words)]
+    out, i = [], 0
+    while i < len(words):
+        word = words[i]
+        if word == "a" and words[i + 1:i + 2] == ["quarter"]:
+            i += 1
+            continue
+        minutes = int(word) if word.isdigit() else MINUTES.get(word)
+        hour = re.fullmatch(r"(\d{1,2})(am|pm)?", words[i + 2]) if i + 2 < len(words) else None
+        if minutes and minutes < 60 and hour and words[i + 1] in PAST and 1 <= int(hour.group(1)) <= 12:
+            h = int(hour.group(1))
+            if PAST[words[i + 1]] < 0:
+                h, minutes = (h - 2) % 12 + 1, 60 - minutes
+            out.append(f"{h}:{minutes:02d}{hour.group(2) or ''}")
+            i += 3
+        elif (re.fullmatch(r"\d{1,2}", word) and i + 2 < len(words)
+              and re.fullmatch(r"[0-5]\d", words[i + 1]) and words[i + 2] in ("am", "pm")):
+            out.append(f"{word}:{words[i + 1]}")
+            i += 2
+        else:
+            out.append(word)
+            i += 1
+    return out
+
+
+def clock_time(words, now):
+    """The moment "4pm", "tomorrow at 9", "fri 10am", "oct 30" or "tonight"
+    names. A time already past today moves to tomorrow, a weekday to next
+    week, and a date to next year. Raises Past when "today" or a date with a
+    year has gone by."""
+    # "4pm the dentist" is 4pm and "The dentist", not 4pm and "Dentist".
+    if words and words[-1] in FILLER - {"o'clock", "oclock"}:
+        return None
+    words = written(words)
+    day = kind = None
+    hour = minute = meridiem = part = None
+    exact = False
+    i = 0
+    while i < len(words):
+        word = words[i]
+        after = words[i + 1] if i + 1 < len(words) else ""
+        if word in FILLER or (word == "in" and after == "the"):
+            pass
+        elif word in ("today", "tonight", "tomorrow"):
+            if kind:
+                return None
+            kind = "tomorrow" if word == "tomorrow" else "today"
+            day = now.date() + dt.timedelta(days=1 if word == "tomorrow" else 0)
+            if word == "tonight":
+                part = "night"
+        elif word in PARTS:
+            if part and part != word:
+                return None
+            part = word
+        elif word in ("noon", "midday", "midnight"):
+            if hour is not None:
+                return None
+            hour, minute, exact = (0 if word == "midnight" else 12), 0, True
+        elif named(word, WEEKDAYS) is not None:
+            if kind:
+                return None
+            kind, day = "weekday", named(word, WEEKDAYS)
+        elif named(word, MONTHS) is not None:
+            m = re.fullmatch(r"(\d{1,2})(?:st|nd|rd|th)?", after)
+            if kind or not m:
+                return None
+            year = None
+            if i + 2 < len(words) and re.fullmatch(r"\d{4}", words[i + 2]):
+                year = int(words[i + 2])
+                i += 1
+            kind = "year" if year else "date"
+            day = dated(year or now.year, named(word, MONTHS) + 1, int(m.group(1)))
+            if day is None:
+                return None
+            i += 1
+        elif m := re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", word):
+            if kind:
+                return None
+            kind, day = "year", dated(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            if day is None:
+                return None
+        elif m := re.fullmatch(r"(\d{1,2})/(\d{1,2})(?:/(\d{2}|\d{4}))?", word):
+            if kind:
+                return None
+            year = int(m.group(3)) if m.group(3) else None
+            if year is not None and year < 100:
+                year += 2000
+            kind = "year" if year else "date"
+            day = dated(year or now.year, int(m.group(1)), int(m.group(2)))
+            if day is None:
+                return None
+        elif m := CLOCK.fullmatch(word):
+            if hour is not None:
+                return None
+            hour, minute = int(m.group(1)), int(m.group(2) or 0)
+            meridiem = m.group(3)
+            if not meridiem and after in ("am", "pm"):
+                meridiem = after
+                i += 1
+            if hour > 23 or minute > 59 or (meridiem and not 1 <= hour <= 12):
+                return None
+            exact = not meridiem and (hour > 12 or hour == 0 or word.startswith("0"))
+        else:
+            return None
+        i += 1
+
+    if hour is None and part is None and kind is None:
+        return None
+    if kind == "weekday":
+        weekday = day
+        day = now.date() + dt.timedelta(days=(weekday - now.weekday()) % 7)
+    elif day is None:
+        day = now.date()
+
+    if hour is None:
+        hours, minute = [PARTS[part] if part else 9], 0
+    elif meridiem:
+        hours = [hour % 12 + (12 if meridiem.startswith("p") else 0)]
+    elif exact:
+        hours = [hour]
+    elif part:
+        hours = [hour % 12 + (0 if part == "morning" else 12)]
+    elif kind:
+        # With a day named, "at 9" is a working hour: 7 to 11 morning,
+        # 12 noon, 1 to 6 afternoon or evening.
+        hours = [hour if 7 <= hour <= 12 else hour % 12 + 12]
+    else:
+        # No day named: whichever comes next, 4 AM or 4 PM.
+        hours = [hour % 12, hour % 12 + 12]
+
+    times = sorted(dt.datetime.combine(day, dt.time(h, minute)) for h in hours)
+    for at in times:
+        if at > now:
+            return at
+    at = times[0]
+    if kind is None:
+        return at + dt.timedelta(days=1)
+    if kind == "weekday":
+        return at + dt.timedelta(days=7)
+    if kind == "date":
+        return dated(at.year + 1, at.month, at.day, at.time()) or None
+    raise Past()
+
+
+def dated(year, month, day, at=None):
+    try:
+        moment = dt.date(year, month, day)
+    except ValueError:
+        return None
+    return dt.datetime.combine(moment, at) if at else moment
+
+
+def when(words, now):
+    """The moment some words name, and the seconds counted if they named a
+    duration. None if they don't name one."""
+    seconds = duration(words)
+    if seconds:
+        return now + dt.timedelta(seconds=seconds), seconds
+    at = clock_time(words, now)
+    return (at, None) if at else None
+
+
+def read(text, now):
+    """Split typed text into (moment, seconds or None, message). The time
+    comes first ("4pm call Bob") or last ("call Bob at 4pm"). Raises Past or
+    ValueError."""
+    raw = text.split()
+    words = [normal(w) for w in raw]
+    # "Remind me at 4pm to ...", typed or dictated whole.
+    while words and words[0] in ("remind", "me"):
+        raw, words = raw[1:], words[1:]
+    passed = False
+
+    def attempt(span):
+        nonlocal passed
+        try:
+            return when(span, now)
+        except Past:
+            passed = True
+            return None
+
+    # The longest run of leading words that names a time.
+    for k in range(min(len(words), 8), 0, -1):
+        found = attempt(words[:k])
+        if found:
+            return found[0], found[1], message(raw[k:])
+    # Or trailing words, but not a lone number: "call 911" and "pay Bob
+    # 12.50" have no time in them.
+    for i in range(max(1, len(words) - 8), len(words)):
+        if i == len(words) - 1 and re.fullmatch(r"\d+(?:[:.]\d+)?", words[i]):
+            break
+        found = attempt(words[i:])
+        if found:
+            return found[0], found[1], message(raw[:i])
+    if passed:
+        raise Past()
+    raise ValueError(HINT)
+
+
+def message(raw):
+    while raw and normal(raw[0]) in ("to", "that", "about", "-", "—", ""):
+        raw = raw[1:]
+    text = " ".join(raw).rstrip(".")
+    return text[:1].upper() + text[1:]
+
+# ------------------------------------------------------------------- showing
+
+
+def short(at, now=None):
+    """"4:00 PM" today, "Tomorrow 9:00 AM", "Fri 10:00 AM", "Fri Oct 30 10:00 AM"."""
+    now = now or dt.datetime.now()
+    clock = at.strftime("%-I:%M %p")
+    days = (at.date() - now.date()).days
+    if days == 0:
+        return clock
+    if days == 1:
+        return f"Tomorrow {clock}"
+    if days == -1:
+        return f"Yesterday {clock}"
+    if 1 < days < 7:
+        return f"{at:%a} {clock}"
+    return f"{at:%a %b} {at.day} {clock}"
+
+
+def left(seconds):
+    """"45s", "20m", "1h 5m", "2d 3h". The box has the same in JavaScript."""
+    seconds = math.ceil(seconds)
+    if seconds <= 0:
+        return "now"
+    if seconds < 60:
+        return f"{seconds}s"
+    days, minutes = divmod(math.ceil(seconds / 60), 1440)
+    hours, minutes = divmod(minutes, 60)
+    if days:
+        return f"{days}d {hours}h" if hours else f"{days}d"
+    if hours:
+        return f"{hours}h {minutes}m" if minutes else f"{hours}h"
+    return f"{minutes}m"
+
+
+def spoken(seconds):
+    parts = []
+    for name, size in (("day", 86400), ("hour", 3600), ("minute", 60)):
+        count, seconds = divmod(seconds, size)
+        if count:
+            parts.append(f"{count} {name}{'' if count == 1 else 's'}")
+    return " ".join(parts) or "time"
+
+
+def label(reminder):
+    return reminder["message"] or "Reminder"
+
+
+def notify(*args):
+    subprocess.run(["omarchy-notification-send", "-g", GLYPH, *args], check=False)
+
+
+def refresh_bar():
+    subprocess.run(["omarchy-shell", "-q", "omarchy.indicators", "refresh"],
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+
+# ---------------------------------------------------------------- reminders
+
+
+def saved():
+    if not STATE.is_dir():
+        return []
+    reminders = []
+    for path in STATE.glob(f"{PREFIX}*.json"):
+        try:
+            reminders.append(json.loads(path.read_text()))
+        except (OSError, ValueError):
+            continue
+    return reminders
+
+
+def forget(unit):
+    (STATE / f"{unit}.json").unlink(missing_ok=True)
+    (MESSAGES / f"{unit}.message").unlink(missing_ok=True)
+
+
+def timers(waiting_only=True):
+    """Reminder timers, as {unit: when it goes off, in epoch seconds}."""
+    out = subprocess.run(
+        ["systemctl", "--user", "list-timers", "--all", "--output=json", f"{PREFIX}*.timer"],
+        capture_output=True, text=True, check=False).stdout
+    now = time.time()
+    found = {}
+    for timer in json.loads(out or "[]"):
+        unit = timer["unit"].removesuffix(".timer")
+        due = (timer.get("next") or 0) / 1e6
+        if due > now or not waiting_only:
+            found[unit] = due
+    return found
+
+
+def schedule(reminder, soon=False):
+    MESSAGES.mkdir(parents=True, exist_ok=True)
+    (MESSAGES / f"{reminder['unit']}.message").write_text(label(reminder))
+    if soon:
+        start = "--on-active=60s"
+    else:
+        start = f"--on-calendar={dt.datetime.fromtimestamp(reminder['at']):%Y-%m-%d %H:%M:%S}"
+    subprocess.run(
+        ["systemd-run", "--user", "--quiet", "--collect", f"--unit={reminder['unit']}", start,
+         "--timer-property=AccuracySec=1s", SELF, "fire", reminder["unit"]],
+        check=True)
+
+
+def sync():
+    """At the first run after login, set timers again for saved reminders.
+    Later, drop saved reminders whose timer was stopped by something else."""
+    first = not RESTORED.exists()
+    waiting = timers()
+    now = time.time()
+    for reminder in saved():
+        unit = reminder["unit"]
+        if unit in waiting:
+            continue
+        if first:
+            try:
+                schedule(reminder, soon=reminder["at"] <= now + 60)
+            except subprocess.CalledProcessError:
+                continue
+        elif reminder["at"] > now:
+            forget(unit)
+    RESTORED.touch()
+
+
+def upcoming():
+    sync()
+    now = time.time()
+    by_unit = {r["unit"]: r for r in saved()}
+    items = []
+    for unit, due in timers().items():
+        reminder = by_unit.get(unit)
+        if reminder is None:
+            # Set with `omarchy reminder`, not remind.
+            path = MESSAGES / f"{unit}.message"
+            text = path.read_text() if path.exists() else ""
+            reminder = {"unit": unit, "message": text, "at": due}
+        at = dt.datetime.fromtimestamp(reminder["at"])
+        items.append({"unit": unit, "message": label(reminder), "at": reminder["at"],
+                      "when": short(at), "left": left(reminder["at"] - now)})
+    return sorted(items, key=lambda item: item["at"])
+
+
+def set_reminder(text):
+    now = dt.datetime.now().replace(microsecond=0)
+    try:
+        at, seconds, what = read(text, now)
+    except Past:
+        return fail("That time has already passed")
+    except ValueError as error:
+        return fail(str(error))
+
+    set_at = int(time.time())
+    minutes = math.ceil((at - now).total_seconds() / 60)
+    taken = set(timers(waiting_only=False)) | {r["unit"] for r in saved()}
+    while (unit := f"{PREFIX}{minutes}m-{set_at}") in taken:
+        set_at += 1
+    reminder = {"unit": unit, "at": int(at.timestamp()), "message": what, "seconds": seconds}
+    schedule(reminder)
+    STATE.mkdir(parents=True, exist_ok=True)
+    (STATE / f"{unit}.json").write_text(json.dumps(reminder) + "\n")
+    refresh_bar()
+
+    summary = f"{short(at, now)}, in {left((at - now).total_seconds())}"
+    notify(what or "Reminder set", summary)
+    print(f"{label(reminder)}: {summary}")
+    return 0
+
+
+def fire(unit):
+    path = STATE / f"{unit}.json"
+    try:
+        reminder = json.loads(path.read_text())
+    except (OSError, ValueError):
+        reminder = {"unit": unit, "message": "", "at": time.time(), "seconds": None}
+    forget(unit)
+
+    at = dt.datetime.fromtimestamp(reminder["at"])
+    if reminder["message"]:
+        body = reminder["message"]
+    elif reminder.get("seconds"):
+        length = spoken(reminder["seconds"])
+        body = f"Your {length} {'is' if length in ('1 minute', '1 hour', '1 day') else 'are'} up"
+    else:
+        body = f"It's {at:%-I:%M %p}"
+    if time.time() - reminder["at"] > 120:
+        body += f"\nWas due {short(at)}"
+    notify("Reminder", body)
+    refresh_bar()
+    return 0
+
+
+def show(as_json):
+    items = upcoming()
+    if as_json:
+        print(json.dumps(items))
+    elif items:
+        lines = [f"{i['message']}: {i['when']}, in {i['left']}" for i in items]
+        print("\n".join(lines))
+        notify("Upcoming reminders", "\n".join(lines))
+    else:
+        print("No outstanding reminders")
+        notify("Upcoming reminders", "No outstanding reminders")
+    return 0
+
+
+def cancel(unit):
+    subprocess.run(["systemctl", "--user", "stop", f"{unit}.timer"],
+                   stderr=subprocess.DEVNULL, check=False)
+    forget(unit)
+    refresh_bar()
+    return 0
+
+
+def clear():
+    units = [f"{unit}.timer" for unit in timers(waiting_only=False)]
+    if units:
+        subprocess.run(["systemctl", "--user", "stop", *units], check=False)
+    for reminder in saved():
+        forget(reminder["unit"])
+    for path in MESSAGES.glob(f"{PREFIX}*.message") if MESSAGES.is_dir() else []:
+        path.unlink(missing_ok=True)
+    refresh_bar()
+    notify("All reminders have been cleared")
+    print("All reminders have been cleared")
+    return 0
+
+
+def preview(text):
+    """What the box shows under what's typed."""
+    now = dt.datetime.now().replace(microsecond=0)
+    result = {"input": text, "ok": False}
+    if text.strip():
+        try:
+            at, _, what = read(text, now)
+            result.update(ok=True, at=int(at.timestamp()), when=short(at, now), message=what)
+        except Past:
+            result["error"] = "That time has already passed"
+        except ValueError as error:
+            result["error"] = str(error)
+    print(json.dumps(result))
+    return 0
+
+
+def fail(text):
+    print(text, file=sys.stderr)
+    if not sys.stderr.isatty():
+        notify("Reminder not set", text)
+    return 1
+
+
+def usage():
+    with open(SELF) as source:
+        for line in source.readlines()[1:]:
+            if not line.startswith("#"):
+                break
+            print(line[2:].rstrip())
+    return 2
+
+
+def main(args):
+    first, rest = (args[0], args[1:]) if args else ("", [])
+    unit = rest[0] if len(rest) == 1 and re.fullmatch(rf"{PREFIX}[\w.-]+", rest[0]) else None
+    if first in ("show", "list") and rest in ([], ["--json"], ["-j"]):
+        return show(bool(rest))
+    if first == "clear" and not rest:
+        return clear()
+    if first == "cancel" and unit:
+        return cancel(unit)
+    if first == "fire" and unit:
+        return fire(unit)
+    if first == "restore" and not rest:
+        sync()
+        refresh_bar()
+        return 0
+    if first == "parse" and rest[:1] == ["--"]:
+        return preview(" ".join(rest[1:]))
+    if first in ("-i", "--interactive") and not rest:
+        return subprocess.run(["omarchy-reminder", "-i"], check=False).returncode
+    if first in ("", "-h", "--help") and not rest:
+        return usage()
+    if first == "--":
+        args = rest
+    return set_reminder(" ".join(args))
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

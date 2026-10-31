@@ -79,6 +79,7 @@ tell whether it applies to yours.
 - [Bar is missing a widget you want, or shows one you don't use](recipes/tailscale-missing-from-the-bar/RECIPE.md): enable, disable, or add bar widgets, such as Tailscale.
 - [Bar and menu text too small](recipes/bar-and-menu-text-too-small/RECIPE.md): enlarge the shell font without changing terminals.
 - [Reminder notification disappears after 5 seconds](recipes/reminder-disappears-after-5-seconds/RECIPE.md): keep reminders up until dismissed.
+- [Reminders only take minutes, and a reboot loses them](recipes/reminders-only-take-minutes-and-vanish-at-reboot/RECIPE.md): set them by clock time or date, and keep them across reboots.
 - [Reboot from the menu, or Ctrl+Alt+Delete, closes everything without asking](recipes/reboot-and-close-all-windows-without-asking/RECIPE.md): add confirmations.
 - [No Print Screen key for screenshots](recipes/no-print-screen-key-for-screenshots/RECIPE.md): put a screenshot tool on Super+Shift+S and in the Capture menu.
 - [Ctrl+Enter toggles fullscreen in Ghostty](recipes/ctrl-enter-toggles-fullscreen-in-ghostty/RECIPE.md): pass the key through to apps.
