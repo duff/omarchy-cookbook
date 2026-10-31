@@ -56,6 +56,7 @@ tell whether it applies to yours.
 - [Hard to see which window is focused](recipes/hard-to-see-which-window-is-focused/RECIPE.md): wider borders.
 - [Windows are slightly see-through](recipes/windows-are-slightly-see-through/RECIPE.md): make every window fully opaque.
 - [A lone window fills the whole screen in the scrolling layout](recipes/lone-window-fills-the-screen-in-scrolling-layout/RECIPE.md): keep it a half-width column.
+- [A lone window stretches across a big screen, but the square toggle squeezes the laptop too](recipes/lone-window-stretches-across-a-big-external-screen/RECIPE.md): keep it square only while an external screen is connected.
 - [Super+Shift+arrow only swaps windows](recipes/super-shift-arrow-only-swaps-windows/RECIPE.md): move a window into its neighbor's split.
 
 ## Laptop, power, network, and audio
