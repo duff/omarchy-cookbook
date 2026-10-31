@@ -20,6 +20,7 @@ tell whether it applies to yours.
 - [Swap Alt and Super on the laptop keyboard only](recipes/swap-alt-and-super-on-laptop-keyboard-only/RECIPE.md): per-device keyd config that leaves an external keyboard alone.
 - [Super+J shows a Lua error on a scrolling-layout workspace](recipes/super-j-error-on-scrolling-layout/RECIPE.md): only toggle the split on dwindle.
 - [No volume keys on the keyboard](recipes/no-volume-keys-on-the-keyboard/RECIPE.md): Super+] and Super+[ turn the volume up and down.
+- [Touchpad doesn't pause while typing when keyd remaps the keyboard](recipes/touchpad-does-not-pause-while-typing-with-keyd/RECIPE.md): mark keyd's virtual keyboard as built in.
 
 ## Compose key and dictation
 
