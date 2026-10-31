@@ -96,7 +96,7 @@ tell whether it applies to yours.
 - [Claude Code keeps asking "How is Claude doing?"](recipes/claude-feedback-survey-interrupts-sessions/RECIPE.md): turn off the feedback survey.
 - [Claude Code adds "Co-Authored-By: Claude" to my commits](recipes/claude-adds-co-authored-by-to-commits/RECIPE.md): turn off attribution.
 - [Claude Code commits but doesn't push, or asks whether to push](recipes/claude-asks-whether-to-push-after-committing/RECIPE.md): make them one step.
-- [A prompt typed into the wrong Claude session changes the wrong project](recipes/prompt-typed-into-the-wrong-claude-session/RECIPE.md): have Claude stop and ask.
+- [A prompt typed into the wrong Claude session changes the wrong project](recipes/prompt-typed-into-the-wrong-claude-session/RECIPE.md): have Claude stop and ask, before the prompt or partway through the task.
 - [Claude Code settings and rules don't follow me to my other machines](recipes/claude-code-config-does-not-follow-to-other-machines/RECIPE.md): which files under `~/.claude` to sync and which to leave out.
 - [Claude Code changes made on Omarchy never reach my Mac](recipes/claude-changes-never-reach-the-mac/RECIPE.md): queue each change as a GitHub issue in the Mac's repo.
 
